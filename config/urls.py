@@ -23,5 +23,5 @@ urlpatterns = [
     path("", include("chat.urls")),
     path("", include("filemanager.urls")),
     path("", include("quiz.urls")),
-    path("accounts/", include('django.contrib.auth.urls'))
+    path("account/", include("login.urls"))
 ]
