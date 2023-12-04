@@ -16,37 +16,39 @@
         <div class="col-8">
           <div class="container">
             <div class="row mt-5 mb-5 text-center">
-                <h1>アカウント作成</h1>
+                <h1>カスタムユーザー作成</h1>
             </div>
             <div class="row">
                 <form action="">
                     {% csrf_token %}
                     <div class="mb-2">
-                        <label for="username" class="form-label">アカウント名</label>
+                        <img src="../../static/images/monster01.png" alt="ユーザーアイコン" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                        <input type="file" name="user_icon" accept="image/*" class="form-control" onchange="previewImage(this);">    
+                    </div>
+                    <div class="mb-2">
+                        <label for="username" class="form-label">ユーザー名</label>
                         <input type="text" name="username" class="form-control">    
                     </div>
                     <div class="mb-2">
-                        <label for="last_name" class="form-label">名字</label>
-                        <input type="text" name="last_name" class="form-control">    
-                    </div>
-                    <div class="mb-2">
-                        <label for="first_name" class="form-label">名前</label>
-                        <input type="text" name="first_name" class="form-control">    
-                    </div>
-                    <div class="mb-2">
-                        <label for="email" class="form-label">E-mail</label>
+                        <label for="email" class="form-label">メールアドレス</label>
                         <input type="email" name="email" class="form-control">    
-                    </div>
-                    <div class="mb-2">
-                        <label for="password" class="form-label">パスワード</label>
-                        <input type="password" name="password" class="form-control">    
                     </div>
                     <div class="mt-3 text-end">
                         <button type="submit" class="btn btn-primary">作成</button>
                     </div>
                 </form>
-            </div>
+          </div>
         </div>
+        <script>
+          function previewImage(obj)
+          {
+            var fileReader = new FileReader();
+            fileReader.onload = (function() {
+              document.getElementById('user_icon').src = fileReader.result;
+            });
+            fileReader.readAsDataURL(obj.files[0]);
+          }
+        </script>
 
         <!-- 右端 -->
         <div class="col-2"></div>

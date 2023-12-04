@@ -15,27 +15,27 @@
         <!-- メインコンテンツ -->
         <div class="col-8">
           <div class="container">
-            <div class="row">
+            <div class="row mt-5 mb-5 text-center">
                 <h1>ログイン</h1>
             </div>
             <div class="row">
                 <form action="">
                     {% csrf_token %}
-                    <div class="row">
-                        <label for="username">アカウント名</label>
-                        <input type="text" name="username">    
+                    <div class="mb-2">
+                        <label for="username" class="form-label">アカウント名</label>
+                        <input type="text" name="username" class="form-control">    
                     </div>
-                    <div class="row">
-                        <label for="password">パスワード</label>
-                        <input type="password" name="password">    
+                    <div class="mb-2">
+                        <label for="password" class="form-label">パスワード</label>
+                        <input type="password" name="password" class="form-control">    
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="">アカウント作成</a>
-                        </div>
-                        <div class="col-6">
-                            <button type="submit">実行</button>
-                        </div>
+                    <div class="row mt-3">
+                      <div class="col-6">
+                        <a href="">アカウント作成</a>
+                      </div>
+                      <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-primary">ログイン</button>
+                      </div>
                     </div>
                 </form>
           </div>
