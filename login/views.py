@@ -9,5 +9,5 @@ def createUser(request):
         email = request.POST.get("email")
         Newuser = User.objects.create_user(name, email, password)
         Newuser.save()
-        return render 
+        return render()
     return render(request, "registration/createUser.html", contexts)
