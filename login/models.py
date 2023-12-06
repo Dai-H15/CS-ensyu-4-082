@@ -23,7 +23,16 @@ def CreatePersonalData(sender, instance, created, **kwargs):
     if created:
         data = PersonalData(user=instance)
         data.username = instance.username
+        data.FirstName = instance.first_name
+        data.LastName = instance.last_name
         data.user_key = secrets.token_hex(32)
+        data.email = instance.email
+        data.save()
+    else:
+        data = PersonalData.objects.get(user=instance)
+        data.username = instance.username
+        data.FirstName = instance.first_name
+        data.LastName = instance.last_name
         data.email = instance.email
         data.save()
 
