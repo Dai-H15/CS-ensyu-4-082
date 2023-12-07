@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .forms import FormDefUser
 
 
 def createDefUser(request):
@@ -16,5 +15,4 @@ def createDefUser(request):
         contexts["res"] = "ユーザーの作成に成功しました"
         return render(request, "portal/index.html", contexts)
     else:
-        contexts["form"] = FormDefUser()
-    return render(request, "login/createUser.html", contexts)
+        return render(request, "login/createUser.html", contexts)
