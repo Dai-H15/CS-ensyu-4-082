@@ -35,7 +35,7 @@
 
           <!-- アカウント情報 -->
 
-          <form class="row">
+          <form class="row" method="post" action="{% url '' %}">
             {% csrf_token %}
             <!-- inputタグのvalueにユーザー情報を挿入 -->
             <div class="mb-2">

@@ -3,5 +3,5 @@ from . import views as loginViews
 
 urlpatterns = [
     path("", include('django.contrib.auth.urls')),
-    path("createUser/", loginViews.createDefUser)
+    path("createUser/", loginViews.createDefUser, name="createUser"),
 ]

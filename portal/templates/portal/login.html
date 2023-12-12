@@ -22,7 +22,7 @@
             <h1>ログイン</h1>
           </div>
 
-          <form class="row align-items-center">
+          <form class="row align-items-center" method="post" action="{% url '' %}">
             {% csrf_token %}
             <div class="mb-2">
               <label for="username" class="form-label">アカウント名</label>
