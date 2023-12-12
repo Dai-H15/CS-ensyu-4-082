@@ -18,3 +18,6 @@ def createDefUser(request):
     else:
         contexts["form"] = FormDefUser()
     return render(request, "login/createUser.html", contexts)
+
+def editUser(request):
+    return render(request, "login/editUser.html", {})

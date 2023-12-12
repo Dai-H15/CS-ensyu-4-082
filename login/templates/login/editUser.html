@@ -35,7 +35,7 @@
 
           <!-- アカウント情報 -->
 
-          <form class="row" method="post" action="{% url '' %}">
+          <form class="row" method="post" action="{% url 'editUser' %}">
             {% csrf_token %}
             <!-- inputタグのvalueにユーザー情報を挿入 -->
             <div class="mb-2">
@@ -56,7 +56,7 @@
             </div>
             <div class="mb-2">
               <label for="password" class="form-label">パスワード</label>
-              <a href="./change_password.html" class="form-text float-end">パスワードの変更</a>
+              <a href="{% url 'passwordChange' %}" class="form-text float-end">パスワードの変更</a>
               <input type="password" name="password" class="form-control">
               <div class="form-text">情報を更新するにはパスワードを入力してください</div>
             </div>
