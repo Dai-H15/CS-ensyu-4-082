@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
+    <!--bar-->
     <nav class="navbar bg-body-tertiary fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Chat</a>
@@ -21,21 +22,21 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">ホーム</a>
+                <a class="nav-link active" aria-current="page" href="./index.html">ホーム</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active"  aria-current="page"href="#">ユーザー検索</a>
+                <a class="nav-link active"  aria-current="page" href="./user.html">ユーザー検索</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">チャットルーム</a>
+                <a class="nav-link active" aria-current="page" href="./room.html">チャットルーム</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   グループ
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">作成</a></li>
-                  <li><a class="dropdown-item" href="#">削除</a></li>
+                  <li><a class="dropdown-item" href="./add.html">作成</a></li>
+                  <li><a class="dropdown-item" href="./chat.html">一覧</a></li>
                   <li>
                     <hr class="dropdown-divider">
                   </li>
@@ -51,7 +52,7 @@
       </div>
     </nav>
 
-    <br>
+    
     <br>
     <div class="container mt-5">
         <div class="row">
@@ -62,13 +63,26 @@
                     </div>
                     <div class="card-body" id="chat">
                         <!-- Chat messages will be displayed here -->
+                        <p style="text-align: right">Message</p>
+                        <p>Responce</p>
+                        <br><!--css-->
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                     <div class="card-footer">
                         <form id="messageForm">
                             <div class="input-group">                                
                                 <input type="text" id="message" class="form-control" placeholder="Your message" required>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary" onclick="">Send</button>
+                                    <button type="button" class="btn btn-primary" onclick="">送信</button>
                                 </div>
                             </div>
                         </form>
@@ -81,5 +95,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
     crossorigin="anonymous"></script>
+    <div>
+      <style>
+      </style>
+    </div>
   </body>
 </html>
