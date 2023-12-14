@@ -45,6 +45,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+
+    {% if res == 0 %}
+    <script type = "text/javascript">
+      window.alert("ユーザーの作成に成功しました");
+      location.href="{% url "portal" %}";
+    </script>
+    {% else %}
+    <script type = "text/javascript">
+      window.alert("ユーザーの作成に失敗しました。入力値を確認してください");
+    </script>
+    {% endif %}
 </body>
 
 </html>

@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "login",
     "chat",
-    "filemanager",
     "quiz",
     "portal",
+    "customUser",
 ]
 
 MIDDLEWARE = [
