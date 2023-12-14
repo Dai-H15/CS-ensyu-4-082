@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>チャットルーム</title>
+    <title>グループ編集</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
@@ -52,60 +52,103 @@
       </div>
     </nav>
 
-    <!--左側：チャットルーム一覧-->
-
     <br>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Chat Room</h5>
-                    </div>
-                    <div class="card-body" id="chat">
-                        <!-- Chat messages will be displayed here -->
-                        <p style="text-align: right">Message</p>
-                        <p>Responce</p>
-                        <br><!--css-->
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="card-footer">
-                        <form id="messageForm">
-                            <div class="input-group">                                
-                                <input type="text" id="message" class="form-control" placeholder="Your message" required>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary" onclick="">送信</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+    <div class="">
+      <h1>グループ編集</h1>
+      <br>
+      <p>グループ名</p>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Group name</option>
+        <option value="1">A</option>
+        <option value="2">C</option>
+        <option value="3">T</option>
+        <option value="4">G</option>
+      </select>
+      <br>
+      <p>メンバー</p>
+      <div class="">
+        <table class="table table-striped table-bordered" style="margin:auto" >
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Message</th>
+            </tr>
+          </thead>
+          <!--ユーザーデータ-->
+          <tbody>
+            <tr>
+              <th scope="row">
+                <img src="../../static/chat/images/dog.png" width="100" height="100">
+              </th>
+              <td>@buchi</td>
+              <td>Rio</td>
+              <td>~~~</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <img src="../../static/chat/images/train.JPG" width="100" height="100">
+              </th>
+              <td>@aka</td>
+              <td>J</td>
+              <td>---</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <img src="../../static/chat/images/dog.png" width="100" height="100">
+              </th>
+              <td>@path</td>
+              <td>Totsune</td>
+              <td>Hello</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <!--改善の必要あり-->
+        <p>ユーザー</p>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+            <label class="form-check-label" for="firstCheckbox">Miyuki</label>
+          </li>
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+            <label class="form-check-label" for="secondCheckbox">Miku</label>
+          </li>
+          <li class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+            <label class="form-check-label" for="thirdCheckbox">Kaede</label>
+          </li>
+        </ul>
+
+        <br>
+        <!--完了ボタン-->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary me-md-2" type="button">メンバー追加</button>
         </div>
+        <br>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary" type="button">完了</button>
+        </div>
+      
+      
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
     crossorigin="anonymous"></script>
-    
+
     <style type="text/css">
       body {
-        margin-top: 0px;
-        margin-left: 100px;
-        margin-right: 100px;
+        margin-top: 50px;
+        margin-left: 300px;
+        margin-right: 300px;
         margin-bottom: 50px;
         padding: 0;
       }
       </style>
-      
   </body>
 </html>
