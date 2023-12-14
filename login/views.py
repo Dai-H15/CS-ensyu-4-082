@@ -20,8 +20,10 @@ def createDefUser(request):
             contexts["res"] = 1
             return render(request, "login/createUser.html", contexts)
     else:
-        return render(request, "login/createUser.html", contexts)
+        contexts["form"] = FormDefUser()
+    return render(request, "login/createUser.html", contexts)
+
+def editUser(request):
+    return render(request, "login/editUser.html", {})
 
 
-def LoginIndex(req):
-    return redirect("login")
