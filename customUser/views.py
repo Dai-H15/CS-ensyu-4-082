@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import CustomUserModel  as CustomUser
+from .models import CustomUserModel as CustomUser
 
 
 def CreateCustomUser(request):

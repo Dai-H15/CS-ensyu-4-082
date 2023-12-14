@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -26,6 +26,11 @@
             <p>ユーザー</p>
 
             <!-- カスタムユーザー一覧 -->
+            <ul>
+            {% for c in customUsers %}
+            <li>{{c}}</li>
+            {% endfor %}
+          </ul>
 
             <div class="col text-end">
               <!-- ユーザー作成ページに移動 -->
@@ -35,7 +40,7 @@
 
           <!-- アカウント情報 -->
 
-          <form class="row" method="post" action="{% url 'editUser' %}">
+          <form class="row" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- inputタグのvalueにユーザー情報を挿入 -->
             <div class="mb-2">
@@ -43,12 +48,24 @@
               <input type="text" name="username" value="{{username}}" class="form-control" aria-label="readonly input example" readonly >
             </div>
             <div class="mb-2">
-              <label for="last_name" class="form-label">名字</label>
-              <input type="text" name="last_name" value="{{last_name}}" class="form-control">
+              <label for="LastName" class="form-label">名字</label>
+              <input type="text" name="LastName" value="{{LastName}}" class="form-control">
             </div>
             <div class="mb-2">
-              <label for="first_name" class="form-label">名前</label>
-              <input type="text" name="first_name" value="{{first_name}}" class="form-control">
+              <label for="FirstName" class="form-label">名前</label>
+              <input type="text" name="FirstName" value="{{FirstName}}" class="form-control">
+            </div>
+            <div class="mb-2">
+              <label for="birth" class="form-label">誕生日</label>
+              <input type="date" name="birth" value="{{birth | date:"Y-m-d"}}" class="form-control">
+            </div>
+            <div class="mb-2">
+              <label for="phone" class="form-label">携帯電話番号</label>
+              <input type="tel" name="phone" value="{{phone}}" class="form-control" pattern="\d{3}\d{4}\d{4}" title = "ハイフン無しで入力してください(11桁)">
+            </div>
+            <div class="mb-2">
+              <label for="image" class="form-label">プロフィール画像</label>
+              <input type="file" name="image" class="form-control">
             </div>
             <div class="mb-5">
               <label for="email" class="form-label">E-mail</label>
@@ -64,33 +81,20 @@
               <button type="submit" class="btn btn-primary">更新</button>
             </div>
           </form>
+          <img src="{{image_url}}" alt ="プロフィール画像" width ="150" >
 
         </div>
-        <script>
-          function previewImage(obj) {
-            var fileReader = new FileReader();
-            fileReader.onload = (function () {
-              document.getElementById('user_icon').src = fileReader.result;
-            });
-            fileReader.readAsDataURL(obj.files[0]);
-          }
-        </script>
-
         <!-- 右端 -->
         <div class="col-2"></div>
       </div>
     </div>
+    {% if res %}
+        <script>window.alert("{{res}}");</script>
+      {% endif %}
     <script src="../../static/portal/js/user_setting.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"></script>
-      {% if res %}
-      {% if res == "T" %}
-      <script>window.alert("変更に成功しました")</script>
-      {% else %}
-      <script>window.alert("変更に失敗しました\nパスワードを確かめてください")</script>
-      {% endif %}
-      {% endif %}
 </body>
 
 </html>

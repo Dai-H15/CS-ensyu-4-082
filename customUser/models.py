@@ -18,7 +18,7 @@ class CustomUserModel(models.Model):
     PersonalData = models.ForeignKey(PersonalData, on_delete=models.DO_NOTHING)
     custom_user_Name = models.CharField(max_length=50)
     custom_user_key = models.CharField(max_length=33, primary_key=True)
-    Community = models.ForeignKey(CommunityModel, on_delete=models.SET(CommunityModel.objects.get(community_name="Everyone")))
+    Community = models.ForeignKey(CommunityModel, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.custom_user_Name
