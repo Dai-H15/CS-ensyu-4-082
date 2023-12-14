@@ -28,6 +28,24 @@ def createDefUser(request):
 
 
 def editUser(request):
-    return render(request, "login/editUser.html", {})
-
+    contexts = {}
+    if request.method == "POST":
+        password = request.POST.get("password")
+        username = request.POST.get("username")
+        print(username, password)
+        if authenticate(username=username, password=password) is None:
+            contexts["res"] = "F"
+        else:
+            s = User.objects.get(id=request.user.id)
+            s.first_name = request.POST.get("first_name")
+            s.last_name = request.POST.get("last_name")
+            s.email = request.POST.get("email")
+            s.save()
+            contexts["res"] = "T"
+    s = User.objects.get(id=request.user.id)
+    contexts["username"] = s.username
+    contexts["first_name"] = s.first_name
+    contexts["last_name"] = s.last_name
+    contexts["email"] = s.email
+    return render(request, "login/editUser.html", contexts)
 
