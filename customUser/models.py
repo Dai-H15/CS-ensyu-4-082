@@ -11,6 +11,7 @@ class CommunityModel(models.Model):
 
 
 class CustomUserModel(models.Model):
+    custom_user_Name = models.CharField(max_length=50)
     user_key = models.ForeignKey(PersonalData, on_delete=models.DO_NOTHING)
     custom_user_key = models.CharField(max_length=33, primary_key=True)
     Community = models.ForeignKey(CommunityModel, on_delete=models.DO_NOTHING)
