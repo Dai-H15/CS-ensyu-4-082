@@ -16,7 +16,7 @@ class PersonalData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user_key
+        return self.username
 
 
 def CreatePersonalData(sender, instance, created, **kwargs):
@@ -38,5 +38,3 @@ def CreatePersonalData(sender, instance, created, **kwargs):
 
 
 post_save.connect(CreatePersonalData, sender=User)
-
-# Create your models here.
