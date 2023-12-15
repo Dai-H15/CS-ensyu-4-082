@@ -6,8 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    {% for t in s %}
-    <p>{{t}}</p>
-    {% endfor %}
+    <h2>"{{PersonalData.username}}" に紐づけされます</h2>
+    <form method = "POST">
+        {% csrf_token %}
+    <table>{{form.as_table}}</table>
+    <input type="submit" value="登録">
+    </form>
+
+
+    {% if res %}
+    <script>
+        {% if res == "0" %}
+            
+            window.alert("{{message}}");
+            location.href="{% url "editUser" %}";
+            
+    {% else %}
+        window.alert("{{message}}");
+    {% endif %}
+    </script>
+    {% endif %}
 </body>
 </html>

@@ -6,8 +6,8 @@ from django.db.models.signals import post_save
 
 class CommunityModel(models.Model):
     community_name = models.CharField(max_length=30)
-    community_Key = models.CharField(max_length=33, primary_key=True)
-    introduce = models.CharField(max_length=300)
+    community_Key = models.CharField(max_length=64, primary_key=True)
+    introduce = models.TextField(max_length=300, default="紹介文を入力")
     is_RegistByEmail = models.BooleanField()
 
     def __str__(self):
@@ -16,8 +16,9 @@ class CommunityModel(models.Model):
 
 class CustomUserModel(models.Model):
     PersonalData = models.ForeignKey(PersonalData, on_delete=models.DO_NOTHING)
+    Customdata = models.TextField(max_length=1000, default="プロフィールを入力")
     custom_user_Name = models.CharField(max_length=50)
-    custom_user_key = models.CharField(max_length=33, primary_key=True)
+    custom_user_key = models.CharField(max_length=64, primary_key=True)
     Community = models.ForeignKey(CommunityModel, on_delete=models.PROTECT)
 
     def __str__(self):
