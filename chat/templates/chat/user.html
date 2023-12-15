@@ -1,99 +1,103 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ユーザー検索</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  </head>
-  <body>
-    <!--bar-->
-    <nav class="navbar bg-body-tertiary fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">Chat</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Chat</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <!--メニュー検索-->
-          <div class="offcanvas-body">
-            <form class="d-flex mt-3" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-            <br>
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <!--カテゴリ-->
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./index.html">ホーム</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active"  aria-current="page" href="./user.html">ユーザー検索</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./chat.html">チャット一覧</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./add.html">グループ作成</a>
-              </li>
-            <!--個人チャットルーム-->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  メンバー
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="./room.html">Name1</a></li>
-                  <li><a class="dropdown-item" href="./room.html">Name2</a></li>
-                </ul>
-              </li>
-            <!--グループチャットルーム-->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  グループ
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="./room.html">GroupA</a></li>
-                  <li><a class="dropdown-item" href="./room.html">GroupB</a></li>
-                </ul>
-              </li>
-            </ul>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ユーザー検索</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body class="mt-5">
+  <div class="container">
+    <div class="row text-start">
+      <!--bar-->
+      <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Chat</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <!--メニュー検索-->
+            <div class="offcanvas-body">
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </form>
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mt-2">
+                <!--カテゴリ-->
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./user.html">ユーザー検索</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./chat.html">チャット一覧</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./add.html">グループ作成</a>
+                </li>
+                <!--個人チャットルーム-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    メンバー
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="./room.html">Name1</a></li>
+                    <li><a class="dropdown-item" href="./room.html">Name2</a></li>
+                  </ul>
+                </li>
+                <!--グループチャットルーム-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    グループ
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="./room.html">GroupA</a></li>
+                    <li><a class="dropdown-item" href="./room.html">GroupB</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="d-none d-md-block col-2">
+        <!---->
       </div>
-    </nav>
-
-    <br>
-
-    <div class="center">
-      <h1>ユーザー検索</h1>
-        <br>
-        <div class="input-group">
+      <div class="col-12 col-md-8">
+        <h1 class="mt-5 mb-5 text-center">ユーザー検索</h1>
+        <div class="input-group mb-3">
           <form>
             <input type="search" class="form-control" placeholder="User name">
           </form>
-          <span class="input-group-btn">
+          <span class="input-group-btn ms-2">
             <button type="submit" class="btn btn-primary">検索</button>
           </span>
         </div>
-        <br>
         <div class="member">
-          <table class="table table-striped table-bordered" style="margin:auto" >
+          <table class="table table-striped table-bordered" style="margin:auto">
             <thead>
               <tr>
                 <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">名前</th>
-                <th scope="col">メッセージ</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">
-                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100"
+                    id="user_icon" class="rounded-circle mb-2">
                 </th>
                 <td>
                   <a href="./room.html">
@@ -101,11 +105,11 @@
                   </a>
                 </td>
                 <td>Rio</td>
-                <td>comment</td>
               </tr>
               <tr>
                 <th scope="row">
-                  <img src="../../static/chat/images/flower.jpg" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                  <img src="../../static/chat/images/flower.jpg" alt="group-icon" width="100" height="100"
+                    id="user_icon" class="rounded-circle mb-2">
                 </th>
                 <td>
                   <a href="./room.html">
@@ -113,11 +117,11 @@
                   </a>
                 </td>
                 <td>J</td>
-                <td>class2</td>
               </tr>
               <tr>
                 <th scope="row">
-                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100"
+                    id="user_icon" class="rounded-circle mb-2">
                 </th>
                 <td>
                   <a href="./room.html">
@@ -125,11 +129,11 @@
                   </a>
                 </td>
                 <td>Tomato</td>
-                <td>Hello</td>
               </tr>
               <tr>
                 <th scope="row">
-                  <img src="../../static/chat/images/sun.jpg" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                  <img src="../../static/chat/images/sun.jpg" alt="group-icon" width="100" height="100" id="user_icon"
+                    class="rounded-circle mb-2">
                 </th>
                 <td>
                   <a href="./room.html">
@@ -137,29 +141,30 @@
                   </a>
                 </td>
                 <td>Rubick</td>
-                <td></td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class=" d-none d-md-block col-2">
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
-        crossorigin="anonymous"></script>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <!---->
+      </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
+
     <style type="text/css">
-      body {
-        margin-top: 50px;
-        margin-left: 300px;
-        margin-right: 300px;
-        margin-bottom: 50px;
-        padding: 0;
-      }
       .member {
         height: 500px;
         overflow-y: scroll;
       }
-      </style>
+    </style>
 
-  </body>
+</body>
+
 </html>
