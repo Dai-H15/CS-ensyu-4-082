@@ -8,15 +8,17 @@
   </head>
   <body>
     <!--写真-->
-    <div class="card-body">
-      <img src="../../static/chat/images/dog.png" class="card-img-top" alt="...">
+    <div class="col-4 text-center">
+      <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
     </div>
     <!--プロフィール-->
-    <div class="card">
+    <div class="card col-6 mb-2">
       <br>
-      <p class="card-text">Name:</h5>
-      <p class="card-text">ID:</p>
-      <p class="card-text">Message:</p>
+      <h6 class="card-title pl-8">Name:</h6>
+      <br>
+      <h6 class="card-title pl-8">ID:</h6>
+      <br>
+      <h6 class="card-title pl-8">Message:</h6>
       <br>
       </div>
     </div>
@@ -28,31 +30,30 @@
     <br>
     <br>
     <br>
+
     <!--リンク-->
     <div class="container container-m">
-      <div class="card-group">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">ユーザー検索</h5>
-            <br>
-            <a href="./user.html" class="card-link">link</a>
-          </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">ユーザー検索</h5>
+          <br>
+          <a href="./user.html" class="card-link">link</a>
         </div>
-  
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">チャットルーム</h5>
-            <br>
-            <a href="./room.html" class="card-link">link</a>
-          </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">チャットルーム</h5>
+          <br>
+          <a href="./room.html" class="card-link">link</a>
         </div>
-  
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">グループ作成</h5>
-            <br>
-            <a href="./add.html" class="card-link">link</a>
-          </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">グループ作成</h5>
+          <br>
+          <a href="./add.html" class="card-link">link</a>
         </div>
       </div>
     </div>
@@ -63,26 +64,19 @@
 
     <style type="text/css">
       body {
-        margin-top: 100px;
+        margin-top: 50px;
         margin-left: 300px;
         margin-right: 300px;
         margin-bottom: 50px;
         padding: 0;
       }
 
-      .card-body {
-        height: 10rem;
-        width: 10rem;
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-
-      .card-text {
-        display:flex;
-      }
-
-      .card-content {
-        display:flex;
-      }
-      </style>
+    </style>
 
   </body>
 </html>
