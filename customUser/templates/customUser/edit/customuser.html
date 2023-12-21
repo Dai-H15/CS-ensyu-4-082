@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method = "POST">
+    {% csrf_token %}
+    <table>
+    <tr>編集するカスタムユーザーを選択</tr>
+    <tr><select name="selectusers" onchange="submit();">
+        <option value="-------">-------</option>
+    {% for user in users %}
+    <option value="{{user.custom_user_key}}">{{user.custom_user_Name}}　　　#{{user.Community}}</option>
+    {% endfor %}
+    </select></tr></table></form>
+    {% if editform %}
+    <form method="POST">
+    {% csrf_token %}
+    <table>{{editform}}</table>
+    <input type="submit" value="変更">
+    </form>
+    {% endif %}
+    
+    {% if res %}
+    <script>
+        {% if res == "0" %}
+            
+            window.alert("{{message}}");
+            location.href="{% url "portal" %}";
+            
+    {% else %}
+        window.alert("{{message}}");
+    {% endif %}
+    </script>
+    {% endif %}
+
+</body>
+</html>

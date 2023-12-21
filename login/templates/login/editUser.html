@@ -26,13 +26,16 @@
             <p>ユーザー</p>
 
             <!-- カスタムユーザー一覧 -->
-            <ul>
+            <ul class = "list-unstyled">
             {% for c in customUsers %}
             <li>{{c}}</li>
             {% endfor %}
           </ul>
 
-            <div class="col text-end">
+            <div class = "col text-start">
+              <a href="{% url "EditCustomUser" %}" class="btn btn-outline-success" role="btn">ユーザーを編集</a>
+            </div>
+          <div class="col text-end">
               <!-- ユーザー作成ページに移動 -->
               <a href="{% url "CreateCustomUser" %}" class="btn btn-outline-dark" role="btn">ユーザーの追加</a>
             </div>

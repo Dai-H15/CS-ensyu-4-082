@@ -1,5 +1,5 @@
 from django.db import models
-from login.models import PersonalData 
+from login.models import PersonalData
 import secrets
 from django.db.models.signals import post_save
 

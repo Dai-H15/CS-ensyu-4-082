@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import CustomUserModel as CustomUser
 from .models import CommunityModel as Communuty
 from login.models import PersonalData
-from .forms import CustomUserForm, CommunityModelForm
+from .forms import CustomUserForm, CommunityModelForm, EditCustomUserForm
 import secrets
 import re
 
@@ -93,3 +93,49 @@ def CreateCommunity(request):
             contexts["message"] = "コミュニティーの作成に失敗しました。"
     contexts["form"] = CommunityModelForm
     return render(request, "customUser/create/community.html", contexts)
+
+
+def EditCustomUser(request):
+    contexts = {}
+    if request.method == "POST":
+        if request.POST.get("selectusers"):
+            CustomUserData = CustomUser.objects.get(custom_user_key=request.POST.get("selectusers"))
+            intialdata = {
+                "custom_user_Name": CustomUserData.custom_user_Name,
+                "Community": CustomUserData.Community,
+                "Customdata": CustomUserData.Customdata,
+                "custom_user_key": request.POST.get("selectusers")
+                }
+            editform = EditCustomUserForm(initial=intialdata)
+            contexts["editform"] = editform
+        else:
+            form = EditCustomUserForm(request.POST, instance=CustomUser.objects.get(custom_user_key=request.POST.get("custom_user_key")))
+            if form.is_valid():
+                CustomUserData = CustomUser.objects.get(custom_user_key=form.cleaned_data.get("custom_user_key"))
+                CustomUserData.custom_user_Name = form.cleaned_data.get("custom_user_Name")
+                CustomUserData.Community = CollectCommunity(request)
+                CustomUserData.Customdata = form.cleaned_data.get("Customdata")
+
+                if CustomUser.objects.filter(Community=CollectCommunity(request)).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")).exists():  # ユーザー名の重複
+                    contexts["res"] = "1"
+                    contexts["message"] = "編集に失敗しました。すでにそのコミュニティーに所属しているか、すでにそのコミュニティーには同じ名前のユーザーが存在します"
+                else:
+                    if CustomUserData.Community.is_RegistByEmail:
+                        if Check_Community(CollectPersonalData(request), CollectCommunity(request)):  # コミュニティーに所属できるかどうか確認
+                            CustomUserData.save()
+                            contexts["res"] = "0"
+                            contexts["message"] = "編集が完了しました"
+                        else:
+                            contexts["res"] = "1"
+                            contexts["message"] = "編集に失敗しました。そのコミュニティーには所属できません"
+                    else:  # 限定じゃないコミュニティー
+                        CustomUserData.save()
+                        contexts["res"] = "0"
+                        contexts["message"] = "編集が完了しました"
+            else:
+                contexts["res"] = "1"
+                contexts["message"] = "編集に失敗しました。値を確認してください"
+            contexts["editform"] = form
+    users = ShowCustomUsers(request)
+    contexts["users"] = users.all()
+    return render(request, "customUser/edit/customuser.html", contexts)

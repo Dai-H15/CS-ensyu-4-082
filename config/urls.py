@@ -26,7 +26,8 @@ urlpatterns = [
     path("", include("chat.urls")),
     path("", include("quiz.urls")),
     path("login/", include("login.urls")),
-    path("create/", include("customUser.createurls"))
+    path("create/", include("customUser.createurls")),
+    path("edit/", include("customUser.editurls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
