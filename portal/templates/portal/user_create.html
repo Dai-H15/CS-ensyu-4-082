@@ -21,9 +21,8 @@
           <div class="row mt-5 mb-5 text-center">
             <h1>カスタムユーザー作成</h1>
           </div>
-          <form class="row align-items-center">
-            <!-- 表示確認後、コメントアウト解除{% csrf_token %} -->
-            
+          <form class="row align-items-center"  method="post" action="{% url '' %}">
+            {% csrf_token %}
             <div class="col-4 text-center">
               <!-- もしユーザーが画像をアップロードしなければ、初期画像をデータベースに登録する -->
               <img src="../../static/portal/images/no_image_square.jpg" alt="ユーザーアイコン" width="100" height="100"

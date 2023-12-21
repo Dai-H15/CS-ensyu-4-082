@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 from django.db import IntegrityError
+from .forms import FormDefUser
 
 
 def createDefUser(request):
@@ -14,14 +16,18 @@ def createDefUser(request):
         try:
             Newuser = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
             Newuser.save()
-            contexts["res"] = 0
+            contexts["res"] = "0"
+            login(request, aut=authenticate(username=username, password=password))
             return render(request, "login/createUser.html", contexts)
         except IntegrityError:
-            contexts["res"] = 1
+            contexts["res"] = "1"
             return render(request, "login/createUser.html", contexts)
     else:
-        return render(request, "login/createUser.html", contexts)
+        contexts["form"] = FormDefUser()
+    return render(request, "login/createUser.html", contexts)
 
 
-def LoginIndex(req):
-    return redirect("login")
+def editUser(request):
+    return render(request, "login/editUser.html", {})
+
+
