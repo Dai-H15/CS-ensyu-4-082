@@ -14,7 +14,13 @@
     <div class="row">
       <!-- メニューバー -->
       <div class="col-2">
-        <a href="{% url 'editUser' %}">アカウント設定</a>
+        {% if user.is_authenticated %}
+        <ul class = "list-unstyled">
+          <li><a href="{% url 'editUser' %}">アカウント設定</a></li>
+          <li><a href="{% url 'CreateCommunity' %}">コミュニティの作成</a></li>
+        </ul>
+        {% endif %}
+        
       </div>
 
       <!-- メインコンテンツ -->
@@ -69,11 +75,6 @@
       <script type = "text/javascript">
         window.alert("{{res}}");
       </script>
-      {% endif %}
-      {% if user.is_authenticated %}
-      <h1>ログイン済み</h1>
-      {% else %}
-      <h1>未ログイン</h1>
       {% endif %}
     
 
