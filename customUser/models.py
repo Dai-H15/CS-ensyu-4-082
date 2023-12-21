@@ -20,6 +20,7 @@ class CustomUserModel(models.Model):
     custom_user_Name = models.CharField(max_length=50)
     custom_user_key = models.CharField(max_length=64, primary_key=True)
     Community = models.ForeignKey(CommunityModel, on_delete=models.PROTECT)
+    image = models.ImageField(upload_to='images/custom/')
 
     def __str__(self):
         return self.custom_user_Name

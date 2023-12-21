@@ -12,7 +12,7 @@ class PersonalData(models.Model):
     phone = models.CharField(max_length=20)
     user_key = models.CharField(max_length=64, primary_key=True)
     email = models.EmailField(max_length=255)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/personal/')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
