@@ -10,13 +10,13 @@ class PersonalData(models.Model):
     LastName = models.CharField(max_length=255)
     birth = models.DateField(default="1990-01-01")
     phone = models.CharField(max_length=20)
-    user_key = models.CharField(max_length=33, primary_key=True)
+    user_key = models.CharField(max_length=64, primary_key=True)
     email = models.EmailField(max_length=255)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/personal/')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user_key
+        return self.username
 
 
 def CreatePersonalData(sender, instance, created, **kwargs):
@@ -38,5 +38,3 @@ def CreatePersonalData(sender, instance, created, **kwargs):
 
 
 post_save.connect(CreatePersonalData, sender=User)
-
-# Create your models here.
