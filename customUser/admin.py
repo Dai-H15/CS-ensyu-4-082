@@ -5,9 +5,9 @@ from . import models as customUserModels
 
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ["custom_user_Name", "custom_user_key", "Community", "Customdata", "PersonalData"]
+    list_display = ["custom_user_Name", "custom_user_key", "Community", "Customdata", "PersonalData", "image"]
     readonly_fields = ("PersonalData",)
-    fields = ("PersonalData", "custom_user_Name", "custom_user_key", "Community", "Customdata")
+    fields = ("PersonalData", "custom_user_Name", "custom_user_key", "Community", "Customdata", "image")
     search_fields = ("custom_user_Name",)
 
 

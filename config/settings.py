@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     "quiz",
     "portal",
     "customUser",
-    "debug_toolbar"
+    "debug_toolbar",
+    "widget_tweaks",
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
