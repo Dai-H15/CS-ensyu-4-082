@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>テスト開始</title>
+        <script type="text/javascript" src="{% static 'teamapp/js/index.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'teamapp/css/detail.css' %}">
+    </head>
+    
+    <body>
+      <div class="home">
+      <a href="{% url 'index' %}"><img src="{% static 'teamapp/img/logo.png' %}" alt="Logo"></a>
+      </div>  
+        <section class="box">
+        <p>テストの説明</p>
+
+        <form>
+        <p>
+          <div class="button">
+            <button type="button"><a href="{% url 'exam' article.id %}">テスト開始</a></button>
+          </div>
+        </p>
+        </form>
+        </section>
+
+        <section class="box">
+        <p>コメント一覧</p>
+        <form action="{% url 'detail' article.id %}" method="post">
+          {% csrf_token %}
+          <div>
+            <label for="textInput">Text</label><br>
+            <textarea class="textbox" id="textInput" name="text" rows="3"></textarea>
+          </div>
+          <div>
+            <div class="button">
+            <button type="submit"><a href="#">Submit</a></button>
+            </div>
+          </div>
+        </form>
+        {% if comments %}
+        {% for comment in comments %}
+        <div class="text">
+          <small>[{{ comment.posted_at }}]</small>
+          <div>
+            {{ comment.text | linebreaksbr }}
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No comment.</p>
+        {% endif %}
+        </section>  
+    </body>
+</html>

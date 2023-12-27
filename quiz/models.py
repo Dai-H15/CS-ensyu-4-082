@@ -5,7 +5,7 @@ from django.utils import timezone
 class Article(models.Model):
     title = models.CharField(max_length=200)
     detail = models.TextField()
-    total_questions = models.IntegerField()
+    total_questions = models.PositiveIntegerField()
     body = models.TextField()
     result = models.TextField()
     posted_at = models.DateField(default=timezone.now)

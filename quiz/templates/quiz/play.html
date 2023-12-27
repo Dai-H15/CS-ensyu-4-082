@@ -82,21 +82,24 @@
             <div class="col-12 col-md-8 mt-5">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-new-tab" data-bs-toggle="tab" data-bs-target="#nav-new"
-                            type="button" role="tab" aria-controls="nav-new" aria-selected="true"
-                            onclick="location.href='{% url 'play' %}?sort=date'">新着</button>
-                        <button class="nav-link" id="nav-ranking-tab" data-bs-toggle="tab" data-bs-target="#nav-ranking"
-                            type="button" role="tab" aria-controls="nav-ranking" aria-selected="false"
-                            onclick="location.href='{% url 'play' %}?sort=like'">人気順</button>
-                        <button class="nav-link" id="nav-community-tab" data-bs-toggle="tab"
+                        <button class="nav-link {{ flag_posted_at }}" id="nav-posted_at-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-posted_at" type="button" role="tab" aria-controls="nav-posted_at"
+                            aria-selected="true" onclick="location.href='{% url 'play' %}?sort=date'">新着順</button>
+                        <button class="nav-link {{ flag_like }}" id="nav-like-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-like" type="button" role="tab" aria-controls="nav-like"
+                            aria-selected="false" onclick="location.href='{% url 'play' %}?sort=like'">高評価順</button>
+                        <button class="nav-link {{ flag_answer }}" id="nav-answer-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-answer" type="button" role="tab" aria-controls="nav-answer"
+                            aria-selected="false" onclick="location.href='{% url 'play' %}?sort=answer'">回答数順</button>
+                        <button class="nav-link {{ flag_community }}" id="nav-community-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-community" type="button" role="tab" aria-controls="nav-community"
-                            aria-selected="false" onclick="location.href='{% url 'play' %}'">コミュニティ限定</button>
+                            aria-selected="false" onclick="location.href='{% url 'play' %}?sort=community'">コミュニティ限定</button>
                     </div>
                 </nav>
 
                 <div class="tab-content border-start border-end" id="nav-tabContent">
                     <!-- 新着 -->
-                    <div class="tab-pane fade show active" id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab"
+                    <div class="tab-pane fade show active" id="nav-posted_at" role="tabpanel" aria-labelledby="nav-posted_at-tab"
                         tabindex="0">
                         {% if articles %}
                         {% for article in articles %}
@@ -123,8 +126,36 @@
                         {% endif %}
                     </div>
 
-                    <!-- 人気順 -->
-                    <div class="tab-pane fade" id="nav-ranking" role="tabpanel" aria-labelledby="nav-ranking-tab"
+                    <!-- 高評価順 -->
+                    <div class="tab-pane fade" id="nav-like" role="tabpanel" aria-labelledby="nav-like-tab"
+                        tabindex="0">
+                        {% if articles %}
+                        {% for article in articles %}
+                        <div class="row align-items-center">
+                            <div class="col-4 text-center">
+                                <a href="{% url 'play' %}">
+                                    <img src="../../static/portal/images/no_image_square.jpg" alt="クイズサムネイル" width="100"
+                                        height="100">
+                                </a>
+                            </div>
+                            <div class="col-8">
+                                <a href="{% url 'play' %}">
+                                    <div class="p-1">
+                                        <div>2024-1-1 名無し</div>
+                                        <div>INIADクイズ *INIADコミュニティ限定</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="border-bottom"></div>
+                        {% endfor %}
+                        {% else %}
+                        <div>No article.</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- 回答数順 -->
+                    <div class="tab-pane fade" id="nav-answer" role="tabpanel" aria-labelledby="nav-answer-tab"
                         tabindex="0">
                         {% if articles %}
                         {% for article in articles %}

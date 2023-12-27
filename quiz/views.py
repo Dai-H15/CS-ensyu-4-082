@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from quiz.models import Article, Comment
+from django.db import IntegrityError
+from .forms import quizMakeForm
 
 # Create your views here.
 def index(request):
@@ -14,28 +16,47 @@ def index(request):
 
 def make(request):
     contexts = {}
+    if request.method == "POST" and quizMakeForm(request.POST).is_valid():
+        try:
+            quizMakeForm(request.POST).save()
+            contexts["res"] = "0"
+            return render(request, "quiz/make.html", contexts)
+        except IntegrityError:
+            contexts["res"] = "1"
+            return render(request, "quiz/make.html", contexts)
+    else:
+        contexts["form"] = quizMakeForm()
     return render(request, "quiz/make.html", contexts)
 
 def play(request):
-    flag_posted_at = 'false'
-    flag_like = 'false'
+    flag_posted_at = ''
+    flag_like = ''
+    flag_answer = ''
+    flag_community = ''
     if ('sort' in request.GET):
         if request.GET['sort'] == 'like':
             articles = Article.objects.order_by('-like')
-            flag_like = 'true'
+            flag_like = 'active'
         elif request.GET['sort'] == 'answer':
             articles = Article.objects.order_by('-answer')
+            flag_answer = 'active'
+        elif request.GET['sort'] == 'community':
+            #articles = Article.objects.get(community=community_id)
+            articles = Article.objects.order_by('-posted_at')
+            flag_community = 'active'
         else:
             articles = Article.objects.order_by('-posted_at')
-            flag_posted_at = 'true'
+            flag_posted_at = 'active'
     else:
         articles = Article.objects.order_by('-posted_at')
-        flag_posted_at = 'true'
+        flag_posted_at = 'active'
 
     context = {
         "articles": articles,
         "flag_posted_at": flag_posted_at,
         "flag_like": flag_like,
+        "flag_answer": flag_answer,
+        "flag_community": flag_community,
     }
     return render(request, 'quiz/play.html', context)
 

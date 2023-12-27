@@ -1,0 +1,45 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>クイズ作成</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- メニューバー -->
+            <div class="col-2"></div>
+
+            <!-- メインコンテンツ -->
+            <div class="col-8">
+                <div class="container">
+                    <div class="row mt-5 mb-5 text-center">
+                        <h1>クイズ作成</h1>
+                    </div>
+
+                    <form class="row" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        {% bootstrap_field field %}
+                        {% endfor %}
+                        <div class="mt-3 mb-4 text-end">
+                            <button type="submit" class="btn btn-primary">作成</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 右端 -->
+            <div class="col-2"></div>
+        </div>
+    </div>
+</body>
+
+</html>
