@@ -11,7 +11,10 @@ from .forms import quizMakeForm
 
 # Create your views here.
 def index(request):
-    contexts = {}
+    articles = Article.objects.order_by('-posted_at')
+    contexts = {
+        "articles": articles,
+    }
     return render(request, "quiz/index.html", contexts)
 
 def make(request):
@@ -72,7 +75,7 @@ def detail(request, article_id):
         'article': article,
         'comments': article.comments.order_by('-posted_at')
     }
-    return render(request, "teamapp/detail.html", context)
+    return render(request, "quiz/detail.html", context)
 
 def exam(request, article_id):
     try:
@@ -82,7 +85,7 @@ def exam(request, article_id):
     context = {
         'article': article
     }
-    return render(request, 'teamapp/exam.html', context)
+    return render(request, 'quiz/exam.html', context)
 
 def result(request, article_id):
     try:
@@ -97,7 +100,7 @@ def result(request, article_id):
         'comments': article.comments.order_by('-posted_at')
     }
     answer(request, article_id)
-    return render(request, 'teamapp/result.html', context)
+    return render(request, 'quiz/result.html', context)
 
 def like(request, article_id):
     try:
@@ -127,7 +130,6 @@ def api_result(request, article_id):
         'result' : 'ここにはリザルトが表示されます'
     }
     return JsonResponse(result)
-
 
 def answer(request, article_id):
     try:

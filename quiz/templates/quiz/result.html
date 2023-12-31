@@ -1,0 +1,47 @@
+{% extends "quiz_base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block title %}result{% endblock %}
+
+{% block content %}
+<a href="{% url 'quiztop' %}"><img src="{% static 'quiz/img/logo.png' %}" alt="Logo"></a>
+<section class="box">
+    <p>テスト結果</p>
+    <p>{{ article.result }}</p>
+    <p>
+    <div class="button">
+        <button type="button"><a>共有</a></button>
+        <button onclick="like({{article.id}});">
+            <a>いいね👍<span id="like{{article.id}}">{{ article.like }}</span></a>
+        </button>
+    </div>
+    </p>
+
+    <p>コメント一覧</p>
+    <form action="{% url 'detail' article.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="textInput">Text</label><br>
+            <textarea id="textInput" name="text" rows="3"></textarea>
+        </div>
+        <div>
+            <div class="button">
+                <button type="submit"> <a>Submit</a></button>
+            </div>
+        </div>
+    </form>
+    {% if comments %}
+    {% for comment in comments %}
+    <div class="text">
+        <small>[{{ comment.posted_at }}]</small>
+        <div>
+            {{ comment.text | linebreaksbr }}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No comment.</p>
+    {% endif %}
+</section>
+{% endblock %}

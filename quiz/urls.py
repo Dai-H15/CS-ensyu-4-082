@@ -11,5 +11,4 @@ urlpatterns = [
     path('<int:article_id>/like', quizViews.like, name='like'),
     path('api/articles/<int:article_id>/like', quizViews.api_like),
     path('api/articles/<int:article_id>/result', quizViews.api_result),
-
 ]

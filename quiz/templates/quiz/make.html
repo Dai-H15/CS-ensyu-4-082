@@ -1,45 +1,28 @@
+{% extends "quiz_base.html" %}
 {% load django_bootstrap5 %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="ja">
+{% block title %}make{% endblock %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>クイズ作成</title>
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-</head>
+{% block content %}
+<div class="row mb-5 text-center">
+    <h1>クイズ作成</h1>
+</div>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <!-- メニューバー -->
-            <div class="col-2"></div>
-
-            <!-- メインコンテンツ -->
-            <div class="col-8">
-                <div class="container">
-                    <div class="row mt-5 mb-5 text-center">
-                        <h1>クイズ作成</h1>
-                    </div>
-
-                    <form class="row" method="post">
-                        {% csrf_token %}
-                        {% for field in form %}
-                        {% bootstrap_field field %}
-                        {% endfor %}
-                        <div class="mt-3 mb-4 text-end">
-                            <button type="submit" class="btn btn-primary">作成</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 右端 -->
-            <div class="col-2"></div>
-        </div>
+<form class="row" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% bootstrap_field field %}
+    {% endfor %}
+    <div class="mt-3 mb-4 text-end">
+        <button type="submit" class="btn btn-primary">作成</button>
     </div>
-</body>
+</form>
 
-</html>
+{% if res == "0" %}
+<script type="text/javascript">
+    window.alert("ユーザーの作成に成功しました");
+    location.href = "{% url 'quiztop' %}";
+</script>
+{% endif %}
+{% endblock %}
