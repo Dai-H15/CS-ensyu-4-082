@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from quiz.models import Article, Comment
 from django.db import IntegrityError
 from .forms import quizMakeForm
+import json
 
 # Create your views here.
 def index(request):
@@ -19,16 +20,41 @@ def index(request):
 
 def make(request):
     contexts = {}
-    if request.method == "POST" and quizMakeForm(request.POST).is_valid():
+    if request.method == "POST":
         try:
-            quizMakeForm(request.POST).save()
-            contexts["res"] = "0"
-            return render(request, "quiz/make.html", contexts)
+            form = quizMakeForm(request.POST)
+            if form.is_valid():
+            # Concatenate question values into the "body" field
+                quiz = form.save(commit=False)
+                total_questions = quiz.total_questions
+                questions = []
+                for i in range(1, total_questions + 1):
+                    question = dict()
+                    q = list(request.POST.get(f"question_{i}").split("\r\n"))
+                    question["question"] = q[0]
+                    question["select1"] = q[1]
+                    question["select2"] = q[2]
+                    question["select3"] = q[3]
+                    question["select4"] = q[4]
+                    question["correct"] = int(q[5])
+                    questions.append(json.dumps(question, ensure_ascii=False, indent=2))
+
+                #questions = ["{" + request.POST.get(f"question_{i}") + "}" for i in range(1, total_questions + 1)]
+                body_content = ",".join(questions)
+                body_content = "[" + body_content + "]"
+                quiz.body = body_content
+
+                # Save the form with updated data
+                quiz.save()
+
+                contexts["res"] = "0"
+                return render(request, "quiz/make.html", contexts)
         except IntegrityError:
             contexts["res"] = "1"
             return render(request, "quiz/make.html", contexts)
     else:
         contexts["form"] = quizMakeForm()
+
     return render(request, "quiz/make.html", contexts)
 
 def play(request):

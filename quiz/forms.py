@@ -4,9 +4,9 @@ from quiz.models import Article
 class quizMakeForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ("title", "detail", "total_questions", "body", "result")
-        labels = {"title": "タイトル", "detail": "説明", "total_questions": "問題数", "body": "問題", "result": "結果"}
-        widgets = {"detail": forms.Textarea, "body": forms.Textarea, "result": forms.Textarea}
+        fields = ("title", "detail", "result", "total_questions")
+        labels = {"title": "タイトル", "detail": "説明", "total_questions": "問題数", "result": "結果画面に表示したいテキスト"}
+        widgets = {"detail": forms.Textarea, "result": forms.Textarea}
         
     '''
     title = forms.CharField(label="タイトル", max_length=200, required=True)

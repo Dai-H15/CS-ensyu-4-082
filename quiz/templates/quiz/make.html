@@ -9,11 +9,39 @@
     <h1>クイズ作成</h1>
 </div>
 
-<form class="row" method="post">
+<form id="quizForm" class="row" method="post">
     {% csrf_token %}
     {% for field in form %}
+    {% if field.name == 'total_questions' %}
     {% bootstrap_field field %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var totalQuestionsInput = document.getElementById('id_total_questions');
+            totalQuestionsInput.addEventListener('input', function () {
+                updateQuestionsFields(this.value);
+            });
+        });
+
+        function updateQuestionsFields(totalQuestions) {
+            var questionsContainer = document.getElementById('questions-container');
+            questionsContainer.innerHTML = '';
+
+            for (var i = 1; i <= totalQuestions; i++) {
+                var questionField = document.createElement('div');
+                questionField.className = 'mb-3';
+                questionField.innerHTML = '<label for="id_question_' + i + '">Question ' + i + '</label>' +
+                    '<textarea rows="6" name="question_' + i + '" class="form-control" placeholder="問題文\n選択肢1\n選択肢2\n選択肢3\n選択肢4\n正解の選択肢番号(半角数字)" required></textarea>';
+                questionsContainer.appendChild(questionField);
+            }
+        }
+    </script>
+    {% else %}
+    {% bootstrap_field field %}
+    {% endif %}
     {% endfor %}
+
+    <div id="questions-container"></div>
+
     <div class="mt-3 mb-4 text-end">
         <button type="submit" class="btn btn-primary">作成</button>
     </div>
