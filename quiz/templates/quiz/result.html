@@ -2,7 +2,8 @@
 {% load django_bootstrap5 %}
 {% load static %}
 
-{% block title %}result{% endblock %}
+{% block title %}{{ article.title }}_結果{% endblock %}
+{% block title2 %}{{ article.title }}{% endblock %}
 
 {% block content %}
 <a href="{% url 'quiztop' %}"><img src="{% static 'quiz/img/logo.png' %}" alt="Logo"></a>
