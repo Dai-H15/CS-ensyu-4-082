@@ -6,35 +6,19 @@
 {% block title2 %}{{ article.title }}{% endblock %}
 
 {% block content %}
-<a href="{% url 'quiztop' %}"><img src="{% static 'quiz/img/logo.png' %}" alt="Logo"></a>
-<section class="box">
-    <p>テスト結果</p>
-    <p>{{ article.result }}</p>
-    <p>
-    <div class="button">
-        <button type="button"><a>共有</a></button>
-        <button onclick="like({{article.id}});">
-            <a>いいね👍<span id="like{{article.id}}">{{ article.like }}</span></a>
-        </button>
-    </div>
-    </p>
+<div class="text-center">
+    <script>document.write("{{ result_text|safe }}");</script>
+</div>
+<div class="mt-2">{{ article.result }}</div>
+<button onclick="like({{article.id}});" class="btn btn-outline-dark mt-2">
+    いいね👍<span id="like{{article.id}}">{{ article.like }}</span>
+</button>
 
-    <p>コメント一覧</p>
-    <form action="{% url 'detail' article.id %}" method="post">
-        {% csrf_token %}
-        <div>
-            <label for="textInput">Text</label><br>
-            <textarea id="textInput" name="text" rows="3"></textarea>
-        </div>
-        <div>
-            <div class="button">
-                <button type="submit"> <a>Submit</a></button>
-            </div>
-        </div>
-    </form>
+<div class="mt-5">
+    <h6>コメント</h6>
     {% if comments %}
     {% for comment in comments %}
-    <div class="text">
+    <div class="text mt-2">
         <small>[{{ comment.posted_at }}]</small>
         <div>
             {{ comment.text | linebreaksbr }}
@@ -42,7 +26,21 @@
     </div>
     {% endfor %}
     {% else %}
-    <p>No comment.</p>
+    <p class="mt-2">No comment.</p>
     {% endif %}
-</section>
+    <form action="{% url 'exam' article.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="result_text" id="result_text" value="{{ result_text }}">
+        <div>
+            <label for="textInput" class="form-label">コメントを書く</label><br>
+            <textarea id="textInput" name="text" rows="3" class="form-control"></textarea>
+        </div>
+        <div>
+            <div class="mt-2">
+                <button type="submit" class="btn btn-outline-dark">投稿</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 {% endblock %}

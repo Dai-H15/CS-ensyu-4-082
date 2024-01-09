@@ -7,7 +7,7 @@ class Article(models.Model):
     detail = models.TextField()
     total_questions = models.PositiveIntegerField()
     body = models.TextField()
-    result = models.TextField()
+    result = models.TextField(blank=True, null=True)
     posted_at = models.DateField(default=timezone.now)
     published_at = models.DateTimeField(blank=True, null=True)
     answer = models.PositiveIntegerField(default=0)

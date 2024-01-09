@@ -6,6 +6,11 @@
 {% block title2 %}{{ article.title }}{% endblock %}
 
 {% block content %}
+<form id="myForm" method="post" action="{% url 'exam' article.id %}">
+    {% csrf_token %}
+    <!-- 隠しフィールドを追加 -->
+    <input type="hidden" name="result_text" id="result_text" value="">
+</form>
 <script>
     {% autoescape off %}
     const total_questions = {{ article.total_questions }}; // ユーザに解かせる問題数
@@ -26,6 +31,7 @@
     {% endautoescape %}
     let ratio;
     let num_correct = 0;
+    let result_text = '';
 
 
     // article.bodyからtotal_questionsの数だけランダムに抽出
@@ -55,7 +61,9 @@
 
     // 結果を見る
     function result_access() {
-        window.location.href = "{% url 'result' article.id %}";
+        document.getElementById("result_text").value = result_text;
+        // フォームを自動的に送信
+        document.getElementById("myForm").submit();
     }
 
 
@@ -86,7 +94,8 @@
             } else {
                 compliment = "さらに研鑽を積もう";
             }
-            column.innerHTML = "<strong><font size='5' color='#ff0000'>選択肢[" + correct + "] 正解！！</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong> 正答率は" + num_correct + "/" + question_number + "=<strong>" + ratio + "%</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br><input id='next_but' type='button' value='結果を見る' onclick='result_access();'/><br><br>";
+            result_text = `かかった時間は<strong> ${time}秒</strong> 正答率は${num_correct}/${question_number}=<strong>${ratio}%</strong>でした<br><strong>${compliment}</strong>`;
+            column.innerHTML = `<strong><font size='5' color='#ff0000'>選択肢[${correct}] 正解！！</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br><input id='next_but' type='button' value='結果を見る' onclick='result_access();'/><br><br>`;
             columnq = document.getElementById("num_correct");
             columnq.innerHTML = num_correct;
         } else if (correct != n && total_questions == question_number) {
@@ -105,7 +114,8 @@
             } else {
                 compliment = "さらに研鑽を積もう";
             }
-            column.innerHTML = "<strong><font size='5' color='#0000ff'>残念！！正解は[" + correct + "]</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong> 正答率は" + num_correct + "/" + question_number + "=<strong>" + ratio + "%</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br><input id='next_but' type='button' value='結果を見る' onclick='result_access();'/><br><br>";
+            result_text = `かかった時間は<strong> ${time}秒</strong> 正答率は${num_correct}/${question_number}=<strong>${ratio}%</strong>でした<br><strong>${compliment}</strong>`;
+            column.innerHTML = `<strong><font size='5' color='#0000ff'>残念！！正解は[${correct}]</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br><input id='next_but' type='button' value='結果を見る' onclick='result_access();'/><br><br>`;
         }
         document.getElementById("but1").disabled = true;
         document.getElementById("but2").disabled = true;

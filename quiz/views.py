@@ -109,33 +109,16 @@ def exam(request, article_id):
     except Article.DoesNotExist:
         raise Http404("Aricle does not exist")
     context = {
-        'article': article
-    }
-    return render(request, 'quiz/exam.html', context)
-
-def result(request, article_id):
-    try:
-        article = Article.objects.get(pk=article_id)
-    except Article.DoesNotExist:
-        raise Http404("Aricle does not exist")
-    if request.method == 'POST':
-        comment = Comment(article=article, text=request.POST['text'])
-        comment.save()
-    context = {
         'article': article,
         'comments': article.comments.order_by('-posted_at')
     }
-    answer(request, article_id)
-    return render(request, 'quiz/result.html', context)
-
-def like(request, article_id):
-    try:
-        article = Article.objects.get(pk=article_id)
-        article.like += 1
-        article.save()
-    except Article.DoesNotExist:
-        raise Http404("Article does not exist")
-    return redirect(detail, article_id)
+    if request.method == 'POST':
+        context['result_text'] = request.POST['result_text']
+        if 'text' in request.POST:
+            comment = Comment(article=article, text=request.POST['text'])
+            comment.save()
+        return render(request, 'quiz/result.html', context)
+    return render(request, 'quiz/exam.html', context)
 
 def api_like(request, article_id):
     try:
@@ -149,19 +132,3 @@ def api_like(request, article_id):
         'like' : article.like
     }
     return JsonResponse(result)
-
-def api_result(request, article_id):
-    result = {
-        'id' : article_id,
-        'result' : 'ここにはリザルトが表示されます'
-    }
-    return JsonResponse(result)
-
-def answer(request, article_id):
-    try:
-        article = Article.objects.get(pk=article_id)
-        article.answer += 1
-        article.save()
-    except Article.DoesNotExist:
-        raise Http404("Article does not exist")
-    return redirect(result, article_id)
