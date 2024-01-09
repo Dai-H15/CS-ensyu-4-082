@@ -61,7 +61,7 @@ def editUser(request):
                 CustomUsers = CustomUserModel.objects.filter(PersonalData=s).all()
                 Everyone = CommunityModel.objects.get(community_name="Everyone")
                 for user in CustomUsers:
-                    user.Community=Everyone
+                    user.Community = Everyone
                     user.save()
                 contexts["res"] += "メールアドレスが変更されたため、すべてのカスタムユーザーの所属コミュニティがEveryoneに変更になりました。必要であれば、再度設定し直してください。"
             s.email = request.POST.get("email")

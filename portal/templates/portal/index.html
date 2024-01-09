@@ -34,7 +34,7 @@
           <div class="row text-center">
             <!-- チャット -->
             <div class="col-4">
-              <a href="login.html">
+              <a href="{% url "redirect_app" "chat" %}">
                 <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="チャットアプリ">
                 <div>チャット</div>
               </a>
@@ -50,7 +50,7 @@
 
             <!-- クイズ -->
             <div class="col-4">
-              <a href="">
+              <a href="{% url "redirect_app" "quiz" %}">
                 <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="クイズアプリ">
                 <div>クイズ</div>
               </a>

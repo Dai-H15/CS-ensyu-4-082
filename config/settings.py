@@ -144,3 +144,5 @@ LOGOUT_REDIRECT_URL = 'portal'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "media/"
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"

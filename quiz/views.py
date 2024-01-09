@@ -10,8 +10,14 @@ from django.db import IntegrityError
 from .forms import quizMakeForm
 import json
 
+
 # Create your views here.
 def index(request):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
     articles_posted_at = Article.objects.order_by('-posted_at')
     articles_answer = Article.objects.order_by('-answer')
     contexts = {
@@ -19,6 +25,7 @@ def index(request):
         "articles_answer": articles_answer,
     }
     return render(request, "quiz/index.html", contexts)
+
 
 def make(request):
     contexts = {}
@@ -54,6 +61,7 @@ def make(request):
 
     return render(request, "quiz/make.html", contexts)
 
+
 def play(request):
     flag_posted_at = ''
     flag_like = ''
@@ -86,6 +94,7 @@ def play(request):
     }
     return render(request, 'quiz/play.html', context)
 
+
 def detail(request, article_id):
     try:
         article = Article.objects.get(pk=article_id)
@@ -99,6 +108,7 @@ def detail(request, article_id):
         'comments': article.comments.order_by('-posted_at')
     }
     return render(request, "quiz/detail.html", context)
+
 
 def exam(request, article_id):
     try:
@@ -117,6 +127,7 @@ def exam(request, article_id):
         return render(request, 'quiz/result.html', context)
     return render(request, 'quiz/exam.html', context)
 
+
 def api_like(request, article_id):
     try:
         article = Article.objects.get(pk=article_id)
@@ -129,6 +140,7 @@ def api_like(request, article_id):
         'like' : article.like
     }
     return JsonResponse(result)
+
 
 def api_answer(request, article_id):
     try:
