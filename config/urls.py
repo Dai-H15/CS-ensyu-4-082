@@ -25,7 +25,7 @@ urlpatterns = [
     path("", include("portal.urls")),
     path("chat/", include("chat.urls")),
     path("quiz/", include("quiz.urls")),
-    path("login/", include("login.urls"))
+    path("login/", include("login.urls")),
     path("create/", include("customUser.createurls")),
     path("edit/", include("customUser.editurls"))
 ]
