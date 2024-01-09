@@ -48,10 +48,10 @@
     </div>
 </form>
 
-{% if res == "0" %}
+{% if res == "1" %}
 <script type="text/javascript">
-    window.alert("ユーザーの作成に成功しました");
-    location.href = "{% url 'quiztop' %}";
+    window.alert("作成に失敗しました");
+    window.history.back();
 </script>
 {% endif %}
 {% endblock %}

@@ -15,11 +15,15 @@
     {% autoescape off %}
     const total_questions = {{ article.total_questions }}; // ユーザに解かせる問題数
     var jsonData = JSON.stringify({{ article.body }});
-    console.log(jsonData);
     var data = JSON.parse(jsonData);
-    console.log(data);
-    const questions = random(data, total_questions);
-    console.log(questions);
+    {% if article.shuffle_q %}
+    let questions = random(data, total_questions);
+    {% else %}
+    let questions = data;
+    {% endif %}
+    {% if article.shuffle_c %}
+    questions = random_choice(questions, 4);
+    {% endif %}
     let question_number = 1; // 問題番号
     let q = questions[question_number - 1]; // 抽出したquestionsを先頭から表示していく(一つのqはquestion, select1, select2, select3, select4, correctを要素に持つ)
     let question = q["question"];
@@ -50,6 +54,39 @@
         return questions; // 抽出された要素がquestionsに格納される
     }
 
+    function random_choice(questions, n) {
+        function shuffle(data) {
+            // オリジナルの選択肢を配列に格納
+            const choices = [data.select1, data.select2, data.select3, data.select4];
+
+            // ランダムな順序で選択肢を並び替え
+            for (let i = n - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [choices[i], choices[j]] = [choices[j], choices[i]];
+            }
+
+            // 正解の選択肢番号を取得
+            const correctIndex = choices.indexOf(data['select' + data.correct]);
+
+            // ランダムに並び替えた選択肢を含む新しいオブジェクトを作成
+            const data_shuffled = {
+                question: data.question,
+                select1: choices[0],
+                select2: choices[1],
+                select3: choices[2],
+                select4: choices[3],
+                correct: correctIndex + 1 // 正解の選択肢番号を更新
+            };
+
+            return data_shuffled;
+        }
+
+        let new_questions = questions.map(element => {
+            return shuffle(element);
+        });
+        return new_questions;
+    }
+
     // もう一度挑戦する
     function reflesh() {
         window.location.reload();
@@ -61,10 +98,10 @@
 
     // 結果を見る
     function result_access() {
-        answer({{article.id}});
-        document.getElementById("result_text").value = result_text;
-        // フォームを自動的に送信
-        document.getElementById("myForm").submit();
+        answer({{ article.id }});
+    document.getElementById("result_text").value = result_text;
+    // フォームを自動的に送信
+    document.getElementById("myForm").submit();
     }
 
 

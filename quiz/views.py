@@ -38,20 +38,15 @@ def make(request):
                     question["select4"] = q[4]
                     question["correct"] = int(q[5])
                     questions.append(json.dumps(question, ensure_ascii=False, indent=2))
-
-                #questions = ["{" + request.POST.get(f"question_{i}") + "}" for i in range(1, total_questions + 1)]
                 body_content = ",".join(questions)
                 body_content = "[" + body_content + "]"
                 quiz.body = body_content
 
                 # Save the form with updated data
                 quiz.save()
-
-                contexts["res"] = "0"
-                return render(request, "quiz/make.html", contexts)
-        except IntegrityError:
+                return redirect("detail", article_id=quiz.id)
+        except Exception:
             contexts["res"] = "1"
-            return render(request, "quiz/make.html", contexts)
     else:
         contexts["form"] = quizMakeForm()
 
