@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.db import IntegrityError
 from .forms import FormDefUser
-from customUser import models as CustomUserModels
+from customUser.models import CustomUserModel, CommunityModel
 from .models import PersonalData
 import PIL
 
@@ -57,6 +57,13 @@ def editUser(request):
             s = PersonalData.objects.get(user_id=request.user.id)
             s.FirstName = request.POST.get("FirstName")
             s.LastName = request.POST.get("LastName")
+            if s.email != request.POST.get("email"):
+                CustomUsers = CustomUserModel.objects.filter(PersonalData=s).all()
+                Everyone = CommunityModel.objects.get(community_name="Everyone")
+                for user in CustomUsers:
+                    user.Community=Everyone
+                    user.save()
+                contexts["res"] += "メールアドレスが変更されたため、すべてのカスタムユーザーの所属コミュニティがEveryoneに変更になりました。必要であれば、再度設定し直してください。"
             s.email = request.POST.get("email")
             s.phone = request.POST.get("phone")
             s.birth = request.POST.get("birth")
@@ -77,6 +84,6 @@ def editUser(request):
     contexts["birth"] = s.birth
     if s.image:
         contexts["image_url"] = s.image.url
-    c = CustomUserModels.CustomUserModel.objects.filter(PersonalData=s)
+    c = CustomUserModel.objects.filter(PersonalData=s)
     contexts["customUsers"] = c
     return render(request, "login/editUser.html", contexts)
