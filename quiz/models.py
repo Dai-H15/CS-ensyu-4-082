@@ -5,11 +5,12 @@ from django.utils import timezone
 class Article(models.Model):
     title = models.CharField(max_length=200)
     detail = models.TextField()
-    total_questions = models.IntegerField()
+    total_questions = models.PositiveIntegerField()
     body = models.TextField()
-    result = models.TextField()
-    posted_at = models.DateField(default=timezone.now)
-    published_at = models.DateTimeField(blank=True, null=True)
+    result = models.TextField(blank=True, null=True)
+    shuffle_q = models.BooleanField(default=False)
+    shuffle_c = models.BooleanField(default=False)
+    posted_at = models.DateTimeField(default=timezone.now)
     answer = models.PositiveIntegerField(default=0)
     like = models.PositiveIntegerField(default=0)
     
