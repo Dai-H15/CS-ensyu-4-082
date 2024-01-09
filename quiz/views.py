@@ -12,9 +12,11 @@ import json
 
 # Create your views here.
 def index(request):
-    articles = Article.objects.order_by('-posted_at')
+    articles_posted_at = Article.objects.order_by('-posted_at')
+    articles_answer = Article.objects.order_by('-answer')
     contexts = {
-        "articles": articles,
+        "articles_posted_at": articles_posted_at,
+        "articles_answer": articles_answer,
     }
     return render(request, "quiz/index.html", contexts)
 

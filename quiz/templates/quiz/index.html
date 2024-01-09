@@ -23,8 +23,9 @@
 <div class="row mt-3">
   <div class="col">
     <div class="border p-1">
-      {% if articles %}
-      {% for article in articles %}
+      <div>新着</div>
+      {% if articles_posted_at %}
+      {% for article in articles_posted_at %}
       <div class="row align-items-center">
         <div class="col-4 text-center">
           <a href="{% url 'detail' article.id %}">
@@ -34,7 +35,7 @@
         <div class="col-8">
           <a href="{% url 'detail' article.id %}">
             <div class="p-1">
-              <div>{{ article.posted_at }} 名無し</div>
+              <div>{{ article.posted_at }}</div>
               <div>{{ article.title }} {{ article.detail }}</div>
             </div>
           </a>
@@ -53,8 +54,28 @@
   <div class="col">
     <div class="border p-1">
       <div>ランキング</div>
-      <div><a href="{% url 'play' %}">2024-1-1 名無し INIADクイズ (※INIADコミュニティ限定)</a></div>
-      <div>2023-12-31 NoName ボカロクイズ</div>
+      {% if articles_answer %}
+      {% for article in articles_answer %}
+      <div class="row align-items-center">
+        <div class="col-4 text-center">
+          <a href="{% url 'detail' article.id %}">
+            <img src="../../static/portal/images/no_image_square.jpg" alt="クイズサムネイル" width="100" height="100">
+          </a>
+        </div>
+        <div class="col-8">
+          <a href="{% url 'detail' article.id %}">
+            <div class="p-1">
+              <div>{{ article.posted_at }}</div>
+              <div>{{ article.title }} {{ article.detail }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="border-bottom"></div>
+      {% endfor %}
+      {% else %}
+      <div>No article.</div>
+      {% endif %}
     </div>
   </div>
 </div>

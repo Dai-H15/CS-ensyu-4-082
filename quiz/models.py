@@ -10,8 +10,7 @@ class Article(models.Model):
     result = models.TextField(blank=True, null=True)
     shuffle_q = models.BooleanField(default=False)
     shuffle_c = models.BooleanField(default=False)
-    posted_at = models.DateField(default=timezone.now)
-    published_at = models.DateTimeField(blank=True, null=True)
+    posted_at = models.DateTimeField(default=timezone.now)
     answer = models.PositiveIntegerField(default=0)
     like = models.PositiveIntegerField(default=0)
     
