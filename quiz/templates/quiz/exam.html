@@ -61,6 +61,7 @@
 
     // 結果を見る
     function result_access() {
+        answer({{article.id}});
         document.getElementById("result_text").value = result_text;
         // フォームを自動的に送信
         document.getElementById("myForm").submit();

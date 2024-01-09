@@ -12,7 +12,7 @@
 <div>
   <h5 class="text-center">{{ article.title }}</h5>
   <p>{{ article.detail }}</p>
-  <p>いいね：{{ article.like }}</p>
+  <p>いいね：{{ article.like }}　回答数：{{ article.answer }}</p>
 </div>
 <div class="d-grid gap-2">
   <button type="button" class="btn btn-primary" onclick="location.href='{% url 'exam' article.id %}';">テスト開始</button>

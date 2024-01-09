@@ -132,3 +132,12 @@ def api_like(request, article_id):
         'like' : article.like
     }
     return JsonResponse(result)
+
+def api_answer(request, article_id):
+    try:
+        article = Article.objects.get(pk=article_id)
+        article.answer += 1
+        article.save()
+    except Article.DoesNotExist:
+        raise Http404("Article does not exist")
+    return
