@@ -16,14 +16,21 @@
 
 <body>
     <header>
+        <div id="customUserModal">
+            <a href="#" onclick="changeUserInfo()">ユーザ情報変更</a>
+            <a href="#">ログアウト</a>
+        </div>
         <nav class="navbar bg-body-tertiary fixed-top">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand d-flex justify-content-center align-items-center mx-auto" href="{% url 'quiz' %}">クイズメーカー</a>
-                <img class="rounded-circle border" src="../static/quiz/images/no_image_square.jpg" width="50px">
+                <a class="navbar-brand d-flex justify-content-center align-items-center mx-auto"
+                    href="{% url 'quiz' %}">クイズメーカー</a>
+                <button onclick="customUserIcon();" id="customUserIcon">
+                    <img class="rounded-circle border" src="{{ CustomUserData.image.url }}" width="50px">
+                </button>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">

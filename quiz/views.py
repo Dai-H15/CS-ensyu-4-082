@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from quiz.models import Article, Comment
+from customUser.models import CustomUserModel as CustomUser
 from django.db import IntegrityError
 from .forms import quizMakeForm
 import json
@@ -24,6 +25,7 @@ def index(request):
         "articles_posted_at": articles_posted_at,
         "articles_answer": articles_answer,
     }
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, "quiz/index.html", contexts)
 
 
@@ -58,7 +60,7 @@ def make(request):
             contexts["res"] = "1"
     else:
         contexts["form"] = quizMakeForm()
-
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, "quiz/make.html", contexts)
 
 
@@ -92,6 +94,7 @@ def play(request):
         "flag_answer": flag_answer,
         "flag_community": flag_community,
     }
+    context["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, 'quiz/play.html', context)
 
 
@@ -107,6 +110,7 @@ def detail(request, article_id):
         'article': article,
         'comments': article.comments.order_by('-posted_at')
     }
+    context["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, "quiz/detail.html", context)
 
 
@@ -124,7 +128,9 @@ def exam(request, article_id):
         if 'text' in request.POST:
             comment = Comment(article=article, text=request.POST['text'])
             comment.save()
+        context["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
         return render(request, 'quiz/result.html', context)
+    context["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, 'quiz/exam.html', context)
 
 
