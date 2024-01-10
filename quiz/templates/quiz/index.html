@@ -39,8 +39,8 @@
         <div class="col-8">
           <a href="{% url 'detail' article.id %}">
             <div class="p-1">
-              <div>{{ article.posted_at }}</div>
-              <div>{{ article.title }} {{ article.detail }}</div>
+              <div>{{ article.posted_at }} {{ article.author }}</div>
+              <div>{{ article.title }}　{{ article.detail | truncatechars:12 }}</div>
             </div>
           </a>
         </div>
@@ -73,8 +73,8 @@
         <div class="col-8">
           <a href="{% url 'detail' article.id %}">
             <div class="p-1">
-              <div>{{ article.posted_at }}</div>
-              <div>{{ article.title }} {{ article.detail }}</div>
+              <div>{{ article.posted_at }} {{ article.author }}</div>
+              <div>{{ article.title }}　{{ article.detail | truncatechars:12 }}</div>
             </div>
           </a>
         </div>
