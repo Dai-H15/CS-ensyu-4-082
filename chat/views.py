@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from customUser.models import CommunityModel, CustomUserModel
+import time
 # Create your views here.
 
 
@@ -32,5 +33,20 @@ def user(request):
     return render(request, "chat/user.html", contexts)
 
 
-def room(request, room_name):
-    return render(request, "chat/room.html", {"room_name": room_name})
+def access_chatroom(request, distuser_key):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    contexts = {}
+    chat_room_key = hex(int(distuser_key, 16) + int(request.session["CustomUserKey"], 16))
+    request.session["chat_room_key"] = chat_room_key
+    contexts["chat_room_key"] = chat_room_key
+    return render(request, "chat/access_chatroom.html", contexts)
+
+
+def chatroom(request, chat_room_key):
+    time.sleep(2)
+    contexts = {}
+    return render(request, "chat/index.html", contexts)

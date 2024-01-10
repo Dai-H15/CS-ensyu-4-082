@@ -104,7 +104,7 @@
                     {% endif %}
                 </th>
                 <td>
-                  <a href="./room.html">
+                  <a href="{% url "access_chatroom" user.custom_user_key %}">
                     {{user.custom_user_Name}}
                   </a>
                 </td>
