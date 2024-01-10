@@ -25,6 +25,11 @@
     window.alert("作成に失敗しました");
     window.history.back();
 </script>
+{% elif res == "2" %}
+<script type="text/javascript">
+    window.alert("編集権限がありません");
+    window.history.back();
+</script>
 {% endif %}
 
 {% endblock %}

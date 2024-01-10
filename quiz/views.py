@@ -91,6 +91,10 @@ def edit(request, article_id):
         return redirect("portal")
     contexts = {}
     quiz = Article.objects.get(pk=article_id)
+    if quiz.author != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]):
+        contexts["res"] = "2"
+        contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+        return render(request, "quiz/edit.html", contexts)
     if request.method == "POST":
         try:
             form = quizEditForm(request.POST, request.FILES, instance=quiz)
