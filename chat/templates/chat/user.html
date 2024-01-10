@@ -76,8 +76,10 @@
         <div class="row mb-3">
           <form method="POST"><!--検索ホルダー -->
             {% csrf_token %}
-            <input type="text" class="form-control" placeholder="User name" name="username">
-            <button type="submit" class="btn btn-primary">検索</button>
+            <input type="search" class="form-control" placeholder="User name" name="username">
+            <div class="text-end mt-1">
+              <button type="submit" class="btn btn-primary">検索</button>
+            </div>
           </form>
         </div>
         <div class="member">
