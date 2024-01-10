@@ -29,7 +29,8 @@ def CollectCommunity(self):
 
 
 def Check_is_RegistByEmail(self):
-    if re.fullmatch(r"@[a-z]+[.]+[a-z]+[.]*[a-z]*", (self.POST.get("community_name"))) is None:
+    print(re.fullmatch(r".*@[a-z]+[.]+[a-z]+[.]*[a-z]*", (self.POST.get("community_name"))))
+    if re.fullmatch(r".*@[a-z]+[.]+[a-z]+[.]*[a-z]*", (self.POST.get("community_name"))) is None:
         return False
     else:
         return True
@@ -37,8 +38,10 @@ def Check_is_RegistByEmail(self):
 
 def Check_Community(PersonalData, community):
     user_mail_addr = PersonalData.email
+    dmin = re.search(r"@[a-z]+[.]+[a-z]+[.]*[a-z]*", user_mail_addr)[0]
+    print(dmin)
     community_name = community.community_name
-    if re.search(community_name, user_mail_addr) is None:
+    if re.search(dmin, community_name) is None:
         return False
     else:
         return True
@@ -225,7 +228,7 @@ def EditCustomUser(request):
                             CustomUserData.save()
                 else:
                     contexts["res"] = "1"
-                    contexts["message"] = "編集に失敗しました。値を確認してください"
+                    contexts["message"] = "編集に失敗しました。値を確認してください。現在画像が未登録の場合は、新たに画像を指定する必要があります"
                 CustomUserData = CustomUser.objects.get(custom_user_key=form.cleaned_data.get("custom_user_key"))
                 if CustomUserData.image:
                     contexts["image_url"] = CustomUserData.image.url
