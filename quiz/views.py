@@ -52,6 +52,7 @@ def make(request):
                 body_content = ",".join(questions)
                 body_content = "[" + body_content + "]"
                 quiz.body = body_content
+                quiz.author = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
 
                 # Save the form with updated data
                 quiz.save()
