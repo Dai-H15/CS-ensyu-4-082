@@ -42,6 +42,10 @@ def make(request):
             if form.is_valid():
             # Concatenate question values into the "body" field
                 quiz = form.save(commit=False)
+                if quiz.community != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community and quiz.community.community_name != 'Everyone':
+                    contexts["res"] = "3"
+                    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+                    return render(request, "quiz/make.html", contexts)
                 total_questions = quiz.total_questions
                 questions = []
                 for i in range(1, total_questions + 1):
@@ -91,6 +95,10 @@ def edit(request, article_id):
         return redirect("portal")
     contexts = {}
     quiz = Article.objects.get(pk=article_id)
+    if quiz.community and quiz.community != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community and quiz.community.community_name != 'Everyone':
+        contexts["res"] = "3"
+        contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+        return render(request, "quiz/make.html", contexts)
     if quiz.author != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]):
         contexts["res"] = "2"
         contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
@@ -127,8 +135,7 @@ def play(request):
             articles = Article.objects.order_by('-answer')
             flag_answer = 'active'
         elif request.GET['sort'] == 'community':
-            #articles = Article.objects.get(community=community_id)
-            articles = Article.objects.order_by('-posted_at')
+            articles = Article.objects.filter(community=CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community)
             flag_community = 'active'
         else:
             articles = Article.objects.order_by('-posted_at')
