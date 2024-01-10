@@ -1,8 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from customUser.models import CustomUserModel
 
 # Create your models here.
 class Article(models.Model):
+    author = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     detail = models.TextField()
     total_questions = models.PositiveIntegerField()
@@ -13,6 +15,7 @@ class Article(models.Model):
     posted_at = models.DateTimeField(default=timezone.now)
     answer = models.PositiveIntegerField(default=0)
     like = models.PositiveIntegerField(default=0)
+    image = models.ImageField(null=True, blank=True, upload_to='images/quiz/')
     
     def __str__(self):
         return self.title

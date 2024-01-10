@@ -10,7 +10,7 @@
     <h1>クイズ作成</h1>
 </div>
 
-<form id="quizForm" class="row" method="post">
+<form id="quizForm" class="row" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
     {% if field.name == 'total_questions' %}
