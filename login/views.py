@@ -45,6 +45,7 @@ def createDefUser(request):
 
 
 def editUser(request):
+    request.session["CustomUserKey"] = ""
     contexts = {}
     if request.method == "POST":
         contexts["res"] = ""

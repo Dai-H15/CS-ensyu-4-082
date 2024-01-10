@@ -44,6 +44,40 @@ def Check_Community(PersonalData, community):
         return True
 
 
+def EditCustmUserData(CustomUserData, request, contexts):
+    if CustomUserData.Community.is_RegistByEmail:
+        if Check_Community(CollectPersonalData(request), CollectCommunity(request)):  # コミュニティーに所属できるかどうか確認
+            if request.FILES:
+                if is_image(request.FILES["image"]):
+                    CustomUserData.image = request.FILES["image"]
+                    contexts["res"] = "0"
+                    contexts["message"] = "編集が完了しました。画像が変更されました。限定コミュニティに所属しています"
+                else:
+                    contexts["res"] = "0"
+                    contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました。限定コミュニティに所属しています"
+            else:
+                contexts["res"] = "0"
+                contexts["message"] = "編集が完了しました。画像は変更されていません。限定コミュニティに所属しています"
+            CustomUserData.save()
+        else:
+            contexts["res"] = "1"
+            contexts["message"] = "編集に失敗しました。そのコミュニティーには所属できません。メールアドレスを確認してください"
+    else:  # 限定じゃないコミュニティー
+        if request.FILES:
+            if is_image(request.FILES["image"]):
+                CustomUserData.image = request.FILES["image"]
+                contexts["res"] = "0"
+                contexts["message"] = "編集が完了しました。公開コミュニティに所属しています"
+            else:
+                contexts["res"] = "0"
+                contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました。公開コミュニティに所属しています"
+        else:
+            contexts["res"] = "0"
+            contexts["message"] = "編集が完了しました。画像は変更されていません。公開コミュニティに所属しています"
+        CustomUserData.save()
+        return CustomUserData, request, contexts
+
+
 def CreateCustomUser(request):
     contexts = {}
     if request.method == "POST":
@@ -126,6 +160,7 @@ def EditCustomUser(request):
     contexts = {}
     if request.method == "POST":
         if request.POST.get("selectusers"):
+            request.session["CustomUserKey"] = request.POST.get("selectusers")
             CustomUserData = CustomUser.objects.get(custom_user_key=request.POST.get("selectusers"))
             if CustomUserData.image:
                 contexts["image_url"] = CustomUserData.image.url
@@ -145,9 +180,18 @@ def EditCustomUser(request):
                     CustomUserData.Community = CollectCommunity(request)
                     CustomUserData.Customdata = form.cleaned_data.get("Customdata")
                     print(CustomUser.objects.filter(Community=CollectCommunity(request)).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")))
-                    if CustomUser.objects.filter(Community=CollectCommunity(request)).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")).count() != 0 :  # ユーザー名の重複
-                        contexts["res"] = "1"
-                        contexts["message"] = "編集に失敗しました。すでにそのコミュニティーに所属しているか、すでにそのコミュニティーには同じ名前のユーザーが存在します"
+                    if CustomUser.objects.filter(Community=CollectCommunity(request)).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")).exists():  # 複数ユーザー名の重複
+                        s = CustomUser.objects.filter(Community=CollectCommunity(request)).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")).filter(custom_user_Name=form.cleaned_data.get("custom_user_Name")).get().custom_user_key
+                        print(s)
+                        if s != request.session["CustomUserKey"]:
+                            print(type(CollectCommunity(request)))
+                            if CollectCommunity(request) == "Everyone":
+                                contexts["res"] = "1"
+                                contexts["message"] = "編集に失敗しました。すでにそのコミュニティーに所属しているか、すでにそのコミュニティーには同じ名前のユーザーが存在します"
+                            else:
+                                CustomUserData, request, contexts = EditCustmUserData(CustomUserData, request, contexts)
+                        else:
+                            CustomUserData, request, contexts = EditCustmUserData(CustomUserData, request, contexts)
                     else:
                         if CustomUserData.Community.is_RegistByEmail:
                             if Check_Community(CollectPersonalData(request), CollectCommunity(request)):  # コミュニティーに所属できるかどうか確認
@@ -155,10 +199,13 @@ def EditCustomUser(request):
                                     if is_image(request.FILES["image"]):
                                         CustomUserData.image = request.FILES["image"]
                                         contexts["res"] = "0"
-                                        contexts["message"] = "編集が完了しました"
+                                        contexts["message"] = "編集が完了しました。画像が変更されました。限定コミュニティに所属しています"
                                     else:
                                         contexts["res"] = "0"
-                                        contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました"
+                                        contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました。限定コミュニティに所属しています"
+                                else:
+                                    contexts["res"] = "0"
+                                    contexts["message"] = "編集が完了しました。画像は変更されていません。限定コミュニティに所属しています"
                                 CustomUserData.save()
                             else:
                                 contexts["res"] = "1"
@@ -168,10 +215,13 @@ def EditCustomUser(request):
                                 if is_image(request.FILES["image"]):
                                     CustomUserData.image = request.FILES["image"]
                                     contexts["res"] = "0"
-                                    contexts["message"] = "編集が完了しました"
+                                    contexts["message"] = "編集が完了しました。公開コミュニティに所属しています"
                                 else:
                                     contexts["res"] = "0"
-                                    contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました"
+                                    contexts["message"] = "画像の形式が不正です。画像を除くプロフィールの編集が完了しました。公開コミュニティに所属しています"
+                            else:
+                                contexts["res"] = "0"
+                                contexts["message"] = "編集が完了しました。画像は変更されていません。公開コミュニティに所属しています"
                             CustomUserData.save()
                 else:
                     contexts["res"] = "1"
@@ -188,7 +238,9 @@ def EditCustomUser(request):
             except CustomUser.DoesNotExist:
                 contexts["res"] = "1"
                 contexts["message"] = "対象のユーザーが存在しません"
-
+            except CustomUser.MultipleObjectsReturned:
+                contexts["res"] = "1"
+                contexts["message"] = "エラーが発生しました"
     users = ShowCustomUsers(request)
     contexts["users"] = users.all()
     return render(request, "customUser/edit/customuser.html", contexts)
