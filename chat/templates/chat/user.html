@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -27,10 +28,6 @@
             </div>
             <!--メニュー検索-->
             <div class="offcanvas-body">
-              <form class="d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-              </form>
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mt-2">
                 <!--カテゴリ-->
                 <li class="nav-item">
@@ -76,72 +73,41 @@
       </div>
       <div class="col-12 col-md-8">
         <h1 class="mt-5 mb-5 text-center">ユーザー検索</h1>
-        <div class="input-group mb-3">
-          <form>
-            <input type="search" class="form-control" placeholder="User name">
-          </form>
-          <span class="input-group-btn ms-2">
+        <div class="row mb-3">
+          <form method="POST"><!--検索ホルダー -->
+            {% csrf_token %}
+            <input type="text" class="form-control" placeholder="User name" name="username">
             <button type="submit" class="btn btn-primary">検索</button>
-          </span>
+          </form>
         </div>
         <div class="member">
           <table class="table table-striped table-bordered" style="margin:auto">
             <thead>
               <tr>
-                <th scope="col"></th>
+                <th scope="col">プロフ画像</th>
                 <th scope="col">ID</th>
                 <th scope="col">名前</th>
               </tr>
             </thead>
             <tbody>
+              {% for user in users %}
               <tr>
                 <th scope="row">
-                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100"
-                    id="user_icon" class="rounded-circle mb-2">
+                  {% if user.image %}
+                    <img src="{{user.image.url}}" alt="group-icon" width="100" height="100" id="user_icon" class="rounded-circle mb-2">
+                    {% else %}
+                      <!-- 代替の画像を表示するか、何も表示しない -->
+                    {% endif %}
                 </th>
                 <td>
                   <a href="./room.html">
-                    @buchi
+                    {{user.custom_user_Name}}
                   </a>
                 </td>
-                <td>Rio</td>
+                <td>{{user.Customdata}}</td>
               </tr>
-              <tr>
-                <th scope="row">
-                  <img src="../../static/chat/images/flower.jpg" alt="group-icon" width="100" height="100"
-                    id="user_icon" class="rounded-circle mb-2">
-                </th>
-                <td>
-                  <a href="./room.html">
-                    @train
-                  </a>
-                </td>
-                <td>J</td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <img src="../../static/chat/images/rabbit.jpg" alt="group-icon" width="100" height="100"
-                    id="user_icon" class="rounded-circle mb-2">
-                </th>
-                <td>
-                  <a href="./room.html">
-                    @path
-                  </a>
-                </td>
-                <td>Tomato</td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <img src="../../static/chat/images/sun.jpg" alt="group-icon" width="100" height="100" id="user_icon"
-                    class="rounded-circle mb-2">
-                </th>
-                <td>
-                  <a href="./room.html">
-                    @RRR
-                  </a>
-                </td>
-                <td>Rubick</td>
-              </tr>
+              {% endfor %}
+              
             </tbody>
           </table>
         </div>

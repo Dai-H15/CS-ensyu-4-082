@@ -146,3 +146,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "media/"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,  # Trueを返すlambda関数を設定
+}
