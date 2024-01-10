@@ -30,10 +30,15 @@ def index(request):
 
 
 def make(request):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
     contexts = {}
     if request.method == "POST":
         try:
-            form = quizMakeForm(request.POST)
+            form = quizMakeForm(request.POST, request.FILES)
             if form.is_valid():
             # Concatenate question values into the "body" field
                 quiz = form.save(commit=False)
@@ -66,6 +71,11 @@ def make(request):
 
 
 def play(request):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
     flag_posted_at = ''
     flag_like = ''
     flag_answer = ''
@@ -101,6 +111,11 @@ def play(request):
 
 def detail(request, article_id):
     try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    try:
         article = Article.objects.get(pk=article_id)
     except Article.DoesNotExist:
         raise Http404("Aricle does not exist")
@@ -116,6 +131,11 @@ def detail(request, article_id):
 
 
 def exam(request, article_id):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
     try:
         article = Article.objects.get(pk=article_id)
     except Article.DoesNotExist:
@@ -137,6 +157,11 @@ def exam(request, article_id):
 
 def api_like(request, article_id):
     try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    try:
         article = Article.objects.get(pk=article_id)
         article.like += 1
         article.save()
@@ -150,6 +175,11 @@ def api_like(request, article_id):
 
 
 def api_answer(request, article_id):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
     try:
         article = Article.objects.get(pk=article_id)
         article.answer += 1

@@ -15,7 +15,7 @@ class Article(models.Model):
     posted_at = models.DateTimeField(default=timezone.now)
     answer = models.PositiveIntegerField(default=0)
     like = models.PositiveIntegerField(default=0)
-    image = models.ImageField(default='quiz/static/quiz/images/no_image_square.jpg', upload_to='images/quiz/')
+    image = models.ImageField(null=True, blank=True, upload_to='images/quiz/')
     
     def __str__(self):
         return self.title
