@@ -70,37 +70,29 @@
         <div class="col-2">
         </div>
 
-        <!-- メインコンテンツ -->
-        <div class="col-8">
-          <div class="container">
-            <div class="row mt-5 mb-5 text-center">
-              <h1>ポータルサイト</h1>
+          <div class="row text-center">
+            <!-- チャット -->
+            <div class="col-4">
+              <a href="{% url "redirect_app" "chat" %}">
+                <img src="{% static 'portal/images/chat.jpg' %}" class="img-thumbnail" alt="チャットアプリ" width="100" height="100">
+                <div>チャット</div>
+              </a>
             </div>
 
-            <div class="row text-center">
-              <!-- チャット -->
-              <div class="col-4">
-                <a href="{% url 'redirect_app' 'chat' %}">
-                  <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="チャットアプリ">
-                  <div>チャット</div>
-                </a>
-              </div>
+            <!-- ファイル共有 -->
+            <div class="col-4">
+              <a href="">
+                <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="ファイル共有アプリ" width="100" height="100">
+                <div>Comming soon...</div>
+              </a>
+            </div>
 
-              <!-- ファイル共有 -->
-              <div class="col-4">
-                <a href="">
-                  <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="ファイル共有アプリ">
-                  <div>Comming soon...</div>
-                </a>
-              </div>
-
-              <!-- クイズ -->
-              <div class="col-4">
-                <a href="{% url  'redirect_app' 'quiz' %}">
-                  <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="クイズアプリ">
-                  <div>クイズ</div>
-                </a>
-              </div>
+            <!-- クイズ -->
+            <div class="col-4">
+              <a href="{% url "redirect_app" "quiz" %}">
+                <img src="{% static 'portal/images/quiz.png' %}" class="img-thumbnail" alt="クイズアプリ" width="100" height="100">
+                <div>クイズ</div>
+              </a>
             </div>
           </div>
         </div>
