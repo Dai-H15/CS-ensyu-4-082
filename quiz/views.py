@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from quiz.models import Article, Comment
 from customUser.models import CustomUserModel as CustomUser
 from django.db import IntegrityError
-from .forms import quizMakeForm
+from .forms import quizMakeForm, quizEditForm
 import json
 
 
@@ -68,6 +68,41 @@ def make(request):
         contexts["form"] = quizMakeForm()
     contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
     return render(request, "quiz/make.html", contexts)
+
+
+def made(request):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    contexts = {
+        'articles': Article.objects.filter(author=CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]))
+    }
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+    return render(request, "quiz/made.html", contexts)
+
+
+def edit(request, article_id):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    contexts = {}
+    quiz = Article.objects.get(pk=article_id)
+    if request.method == "POST":
+        try:
+            form = quizEditForm(request.POST, request.FILES, instance=quiz)
+            if form.is_valid():
+                form.save()
+                return redirect("detail", article_id=quiz.id)
+        except Exception:
+            contexts["res"] = "1"
+    else:
+        contexts["form"] = quizEditForm(instance=quiz)       
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+    return render(request, "quiz/edit.html", contexts)
 
 
 def play(request):
