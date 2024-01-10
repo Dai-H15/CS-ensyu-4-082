@@ -8,7 +8,9 @@
 <body>
     ChatRoomKeyを取得中・・・
         <script>
-            location.href = "{% url "chatroom"  %}";
+            setTimeout(function() {
+                location.href = "{% url 'chatroom' %}";
+            }, 1000);
         </script>
 </body>
 </html>

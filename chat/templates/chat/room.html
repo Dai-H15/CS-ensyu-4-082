@@ -10,6 +10,7 @@
 </head>
 
 <body class="mt-5">
+  
   <div class="container">
     <div class="row text-start">
       <!--bar-->
@@ -76,7 +77,13 @@
       </div>
       
       <div class="col-12">
+        
         <div class="container mt-5">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="toggleSwitch"checked>
+            <label class="form-check-label" for="toggleSwitch">自動更新</label>
+          </div>
+          
           <div class="row">
             <div class="col-md-6 offset-md-3">
               <div class="card">
@@ -129,6 +136,27 @@
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
 
-</body>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+          var toggleSwitch = document.getElementById('toggleSwitch');
+          var redirectTimeout;
+      
+          function checkAndRedirect() {
+              clearTimeout(redirectTimeout); // 既存のタイムアウトをクリア
+      
+              if (toggleSwitch.checked) {
+                  // トグルスイッチがオンの場合、5秒後にリダイレクト
+                  redirectTimeout = setTimeout(function() {
+                      window.location.href = "";
+                  }, 5000);
+              }
+          }
+      
+          toggleSwitch.addEventListener('change', checkAndRedirect);
+      
+          // 初期状態をチェック
+          checkAndRedirect();
+      });
+      </script>    </body>
 
 </html>
