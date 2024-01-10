@@ -1,3 +1,21 @@
 main {
     margin-top: 100px;
 }
+.navbar-toggle {
+    z-index: 2;
+}
+
+.navbar-brand-center {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align:center;
+    margin: auto;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand-center {
+        margin-left: 0 !important;
+    }
+}
