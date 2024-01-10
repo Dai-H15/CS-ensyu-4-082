@@ -6,6 +6,9 @@ from customUser.models import CustomUserModel
 def index(request):
     contexts = {}
     if request.user.is_authenticated:
+        s = PersonalData.objects.get(user_id=request.user.id)
+        if s.image:
+            contexts["PersonalImage"] = s.image.url
         request.session["CustomUserKey"] = ""
         request.session["is_custom_selected"] = False
     return render(request, "portal/index.html", contexts)
