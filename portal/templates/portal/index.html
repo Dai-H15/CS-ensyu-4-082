@@ -14,7 +14,7 @@
 
 <body>
   <header>
-    <div id="customUserModal">
+    <div id="customUserModal" class="position-fixed">
       {% if user.is_authenticated %}
       <a href="{% url 'logout' %}">ログアウト</a>
       {% else %}
