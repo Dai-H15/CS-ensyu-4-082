@@ -22,7 +22,7 @@ def user(request):
     thisuser = CustomUserModel.objects.get(custom_user_key=request.session["CustomUserKey"])
     print(thisuser.Community)
     contexts["Community"] = thisuser.Community
-    users = CustomUserModel.objects.filter(Community=thisuser.Community)
+    users = CustomUserModel.objects.all()
     print(users)
     
     contexts["users"] = users

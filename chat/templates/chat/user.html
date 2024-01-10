@@ -88,7 +88,9 @@
               <tr>
                 <th scope="col">プロフ画像</th>
                 <th scope="col">ID</th>
-                <th scope="col">名前</th>
+                <th scope="col">プロフィール</th>
+                <th scope="col">所属コミュニティ</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -107,6 +109,7 @@
                   </a>
                 </td>
                 <td>{{user.Customdata}}</td>
+                <td>{{user.Community}}</td>
               </tr>
               {% endfor %}
               
