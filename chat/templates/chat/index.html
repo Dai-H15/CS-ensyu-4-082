@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -26,18 +27,18 @@
             <div class="col-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">ユーザー検索</h5>
+                  <h5 class="card-title">個人チャット</h5>
                   <br>
-                  <a href="./user.html" class="card-link">link</a>
+                  <a href="{% url "chat_user" %}" class="card-link">こちら</a>
                 </div>
               </div>
             </div>
             <div class="col-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">チャット一覧</h5>
+                  <h5 class="card-title">コミュニティチャット</h5>
                   <br>
-                  <a href="./chat.html" class="card-link">link</a>
+                  <a href="{% url "chat_community" %}" class="card-link">こちら</a>
                 </div>
               </div>
             </div>
@@ -46,7 +47,7 @@
                 <div class="card-body">
                   <h5 class="card-title">グループ作成</h5>
                   <br>
-                  <a href="./add.html" class="card-link">link</a>
+                  <a href="" class="card-link">link</a>
                 </div>
               </div>
             </div>
