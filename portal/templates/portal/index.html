@@ -27,8 +27,7 @@
           aria-controls="offcanvasNavbar">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand d-flex justify-content-center align-items-center mx-auto"
-          href="#"></a>
+        <a class="navbar-brand d-flex justify-content-center align-items-center mx-auto" href="#"></a>
         <button onclick="customUserIcon();" id="customUserIcon">
           {% if PersonalImage %}
           <img class="rounded-circle border" src="{{ PersonalImage }}" width="50px">
@@ -70,46 +69,46 @@
         <div class="col-2">
         </div>
 
-          <div class="row text-center">
-            <!-- チャット -->
-            <div class="col-4">
-              <a href="{% url "redirect_app" "chat" %}">
-                <img src="{% static 'portal/images/chat.jpg' %}" class="img-thumbnail" alt="チャットアプリ" width="100" height="100">
-                <div>チャット</div>
-              </a>
-            </div>
-
-            <!-- ファイル共有 -->
-            <div class="col-4">
-              <a href="">
-                <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="ファイル共有アプリ" width="100" height="100">
-                <div>Comming soon...</div>
-              </a>
-            </div>
-
-            <!-- クイズ -->
-            <div class="col-4">
-              <a href="{% url "redirect_app" "quiz" %}">
-                <img src="{% static 'portal/images/quiz.png' %}" class="img-thumbnail" alt="クイズアプリ" width="100" height="100">
-                <div>クイズ</div>
-              </a>
-            </div>
+        <div class="row text-center">
+          <!-- チャット -->
+          <div class="col-4 p-lg-5">
+            <a href="{% url 'redirect_app' 'chat' %}">
+              <img src="{% static 'portal/images/chat.jpg' %}" class="img-thumbnail" alt="チャットアプリ">
+              <div>チャット</div>
+            </a>
           </div>
-        </div>
 
-        <!-- 右端 -->
-        <div class="col-2">
+          <!-- クイズ -->
+          <div class="col-4 p-lg-5">
+            <a href="{% url 'redirect_app' 'quiz' %}">
+              <img src="{% static 'portal/images/quiz.png' %}" class="img-thumbnail" alt="クイズアプリ">
+              <div>クイズ</div>
+            </a>
+          </div>
+
+          <!-- ファイル共有 -->
+          <div class="col-4 p-lg-5">
+            <a href="">
+              <img src="{% static 'portal/images/no_image_square.jpg' %}" class="img-thumbnail" alt="ファイル共有アプリ">
+              <div>Comming soon...</div>
+            </a>
+          </div>
         </div>
       </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-      {% if res %}
-      <script type="text/javascript">
-        window.alert("{{res}}");
-      </script>
-      {% endif %}
+      <!-- 右端 -->
+      <div class="col-2">
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
+    {% if res %}
+    <script type="text/javascript">
+      window.alert("{{res}}");
+    </script>
+    {% endif %}
   </main>
 
 </body>
