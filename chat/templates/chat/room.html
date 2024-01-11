@@ -98,7 +98,7 @@
                   <p>ユーザー名: {{chat.username}}</p>
                   <p>時刻: {{chat.date}}</p>
                   <p> >>> {{chat.message}}</p>
-                  <p></p>
+                  <br>
                   {% endfor %}
                   {% else %}
                   <p>メッセージがありません</p>
@@ -112,7 +112,7 @@
                       <input type="text" id="message" class="form-control" placeholder="Your message" name="message" required>
                       <input type="hidden" name = "username" value="{{thisuser.custom_user_Name}}">
                       <div class="input-group-append">
-                        <button type="button" id="message" class="btn btn-primary ms-2" onclick="">送信</button>
+                        <button type="submit" id="message" class="btn btn-primary ms-2" >送信</button>
                       </div>
                     </div>
                   </form>
