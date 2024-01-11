@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils import timezone
-from customUser.models import CustomUserModel
+from customUser.models import CustomUserModel, CommunityModel
 
 # Create your models here.
 class Article(models.Model):
     author = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
+    community = models.ForeignKey(CommunityModel, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=200)
     detail = models.TextField()
     total_questions = models.PositiveIntegerField()

@@ -53,5 +53,10 @@
     window.alert("作成に失敗しました");
     window.history.back();
 </script>
+{% elif res == "3" %}
+<script type="text/javascript">
+    window.alert("そのコミュニティは選択できません。現在所属しているコミュニティのみ選択可能です");
+    window.history.back();
+</script>
 {% endif %}
 {% endblock %}

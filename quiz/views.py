@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from quiz.models import Article, Comment
 from customUser.models import CustomUserModel as CustomUser
 from django.db import IntegrityError
-from .forms import quizMakeForm
+from .forms import quizMakeForm, quizEditForm
 import json
 
 
@@ -42,6 +42,10 @@ def make(request):
             if form.is_valid():
             # Concatenate question values into the "body" field
                 quiz = form.save(commit=False)
+                if quiz.community != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community and quiz.community.community_name != 'Everyone':
+                    contexts["res"] = "3"
+                    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+                    return render(request, "quiz/make.html", contexts)
                 total_questions = quiz.total_questions
                 questions = []
                 for i in range(1, total_questions + 1):
@@ -70,6 +74,49 @@ def make(request):
     return render(request, "quiz/make.html", contexts)
 
 
+def made(request):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    contexts = {
+        'articles': Article.objects.filter(author=CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]))
+    }
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+    return render(request, "quiz/made.html", contexts)
+
+
+def edit(request, article_id):
+    try:
+        if request.session["is_custom_selected"] is False:
+            return redirect("portal")
+    except KeyError:
+        return redirect("portal")
+    contexts = {}
+    quiz = Article.objects.get(pk=article_id)
+    if quiz.community and quiz.community != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community and quiz.community.community_name != 'Everyone':
+        contexts["res"] = "3"
+        contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+        return render(request, "quiz/make.html", contexts)
+    if quiz.author != CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]):
+        contexts["res"] = "2"
+        contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+        return render(request, "quiz/edit.html", contexts)
+    if request.method == "POST":
+        try:
+            form = quizEditForm(request.POST, request.FILES, instance=quiz)
+            if form.is_valid():
+                form.save()
+                return redirect("detail", article_id=quiz.id)
+        except Exception:
+            contexts["res"] = "1"
+    else:
+        contexts["form"] = quizEditForm(instance=quiz)       
+    contexts["CustomUserData"] = CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"])
+    return render(request, "quiz/edit.html", contexts)
+
+
 def play(request):
     try:
         if request.session["is_custom_selected"] is False:
@@ -88,8 +135,7 @@ def play(request):
             articles = Article.objects.order_by('-answer')
             flag_answer = 'active'
         elif request.GET['sort'] == 'community':
-            #articles = Article.objects.get(community=community_id)
-            articles = Article.objects.order_by('-posted_at')
+            articles = Article.objects.filter(community=CustomUser.objects.get(custom_user_key=request.session["CustomUserKey"]).Community)
             flag_community = 'active'
         else:
             articles = Article.objects.order_by('-posted_at')
